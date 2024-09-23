@@ -15,8 +15,10 @@ class CartaoController extends Controller
         if (auth()->user()->profile == 'admin') {
 
             $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
-            ->select('pacotes.descricao', 'cartaos.*')
+            ->join('lojas','lojas.id','cartaos.loja_id')
+            ->select('pacotes.descricao', 'cartaos.*','lojas.nfantasia')
             ->paginate(30);
+
         } else {
 
             $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
@@ -50,14 +52,18 @@ class CartaoController extends Controller
 
         if ($busca == '') {
 
-            $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')->paginate(30);
+            $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
+            ->join('lojas','lojas.id','cartaos.loja_id')
+                ->select('pacotes.descricao', 'cartaos.*','lojas.nfantasia')->paginate(30);
         } else {
 
             if (auth()->user()->profile = 'admin') {
                 $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
-                    ->select('pacotes.descricao', 'cartaos.*')
+                ->join('lojas','lojas.id','cartaos.loja_id')
+                    ->select('pacotes.descricao', 'cartaos.*','lojas.nfantasia')
                     ->where('numero', 'like', '%' . $busca . '%')
                     ->orWhere('descricao', 'like', '%' . $busca . '%')
+                    ->orWhere('nfantasia', 'like', '%' . $busca . '%')
                     ->where('cartaos.status', 'Aberto')
                     ->orderBy('cartaos.id', 'asc')
                     ->paginate(30);
@@ -68,6 +74,7 @@ class CartaoController extends Controller
                     ->where('loja_id', auth()->user()->loja_id)
                     ->where('numero', 'like', '%' . $busca . '%')
                     ->orWhere('descricao', 'like', '%' . $busca . '%')
+
                     ->where('cartaos.status', 'Aberto')
                     ->orderBy('cartaos.id', 'asc')
                     ->paginate(30);

@@ -52,6 +52,8 @@
                                                         class="text-green-2 d-inline-block pb-3">Descrição</span></th>
                                             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade de fotos</span>
                                             </th>
+                                            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Loja</span>
+                                            </th>
                                             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Valor</span>
                                             </th>
 
@@ -79,6 +81,10 @@
                                                 </td>
                                                 <td>
                                                     <span class="text-green">{{ $cartao->quantidade }}</span>
+                                                </td>
+
+                                                <td>
+                                                    <span class="text-green">{{$cartao->nfantasia}}</span>
                                                 </td>
 
                                                 <td>

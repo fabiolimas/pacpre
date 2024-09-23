@@ -95,15 +95,25 @@ public function storeCartoes(Request $request){
 $i=0;
 $numero=0;
 for($i=$request->num_inicio;$i<=$request->num_fim;$i++){
-    $cartao= new Cartao();
-$cartao->loja_id=$request->loja_id;
-$cartao->pacote_id=$request->pacote_id;
-$cartao->servico_id=$request->servico_id;
-$cartao->numero=$i;
-$cartao->quantidade= $pacote->quantidade;
-$cartao->valor=$pacote->valor;
-$cartao->status='Aberto';
-$cartao->save();
+
+    $cartoes=Cartao::where('numero',$i)->count();
+    if($cartoes !=0){
+
+        return redirect()->back()->with('error','Essa numeração ja existe!');
+
+    }else{
+        $cartao= new Cartao();
+        $cartao->loja_id=$request->loja_id;
+        $cartao->pacote_id=$request->pacote_id;
+        $cartao->servico_id=$request->servico_id;
+        $cartao->numero=$i;
+        $cartao->quantidade= $pacote->quantidade;
+        $cartao->valor=$pacote->valor;
+        $cartao->status='Aberto';
+        $cartao->save();
+
+    }
+
 
 }
 return redirect()->back()->withSuccess('Cartões gerados com Sucesso');
