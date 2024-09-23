@@ -29,7 +29,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="loja">Loja</label>
-                                        <select class="form-select" name="loja_id">
+                                        <select class="form-select" name="loja_id" required>
                                             <option value="">Selecione a loja</option>
                                             @foreach($lojas as $loja)
 
@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="descricao">Pacote</label>
-                                        <select class="form-select" name="pacote_id">
+                                        <select class="form-select" name="pacote_id" required>
                                             <option value="">Selecione o Pacote</option>
                                             @foreach($pacotes as $pacote)
 
@@ -51,7 +51,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group mt-3">
                                             <label for="serviço">Serviço do cartão</label>
-                                            <select class="form-select" name="servico_id">
+                                            <select class="form-select" name="servico_id" required>
                                                 <option value="">Selecione o serviço</option>
                                                 @foreach($servicos as $servico)
 
@@ -64,20 +64,20 @@
                                     <div class="col-md-6">
                                         <div class="form-group mt-3">
                                             <label for="quantidade">Quantidade de fotos</label>
-                                            <input type="text" class="form-control" name="quantidade" id="quantidade">
+                                            <input type="text" class="form-control" name="quantidade" id="quantidade" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group mt-3">
                                             <label for="num_inicio">Numeração inicial</label>
-                                            <input type="text" class="form-control" name="num_inicio" id="num_inicio">
+                                            <input type="text" class="form-control" name="num_inicio" id="num_inicio" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mt-3">
                                             <label for="num_fim">Numeração final</label>
-                                            <input type="text" class="form-control" name="num_fim" id="num_fim">
+                                            <input type="text" class="form-control" name="num_fim" id="num_fim" required>
                                         </div>
                                     </div>
                                 </div>
