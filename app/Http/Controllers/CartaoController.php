@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Venda;
+use App\Models\Cartao;
+use Illuminate\Http\Request;
+
+class CartaoController extends Controller
+{
+    public function index()
+    {
+
+
+        if (auth()->user()->profile == 'admin') {
+
+            $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
+            ->select('pacotes.descricao', 'cartaos.*')
+            ->paginate(30);
+        } else {
+
+            $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
+                ->select('pacotes.descricao', 'cartaos.*')
+
+                ->where('loja_id', auth()->user()->loja_id)
+                ->where('cartaos.status', 'Aberto')
+                ->orderBy('cartaos.id', 'asc')
+                ->paginate(30);
+        }
+
+
+
+
+        return view('cartoes.index', compact('cartoes'));
+    }
+
+    public function create()
+    {
+
+        return view('cartoes.create');
+    }
+
+
+
+
+    public function buscaCartao(Request $request)
+    {
+
+        $busca = $request->pesquisa;
+
+        if ($busca == '') {
+
+            $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')->paginate(30);
+        } else {
+
+            if (auth()->user()->profile = 'admin') {
+                $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
+                    ->select('pacotes.descricao', 'cartaos.*')
+                    ->where('numero', 'like', '%' . $busca . '%')
+                    ->orWhere('descricao', 'like', '%' . $busca . '%')
+                    ->where('cartaos.status', 'Aberto')
+                    ->orderBy('cartaos.id', 'asc')
+                    ->paginate(30);
+            } else {
+
+                $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
+                    ->select('pacotes.descricao', 'cartaos.*')
+                    ->where('loja_id', auth()->user()->loja_id)
+                    ->where('numero', 'like', '%' . $busca . '%')
+                    ->orWhere('descricao', 'like', '%' . $busca . '%')
+                    ->where('cartaos.status', 'Aberto')
+                    ->orderBy('cartaos.id', 'asc')
+                    ->paginate(30);
+            }
+        }
+
+
+
+
+
+        if ($cartoes->count() >= 1) {
+            return view('buscas.busca_cartao', compact('cartoes'));
+        } else {
+            return response()->json(['status' => 'Cartão não encontrado']);
+        }
+    }
+
+
+    public function venderCartao(Request $request)
+    {
+
+
+        $venda = new Venda();
+
+        $venda->loja_id = auth()->user()->loja_id;
+        $venda->cartao_id = $request->id;
+        $venda->valor = $request->valor;
+        $venda->status = 'Vendido';
+        $venda->save();
+
+        $cartao = Cartao::find($request->id);
+        $cartao->update(['status' => 'Vendido']);
+
+        return redirect()->back()->withSuccess('Cartão vendido com sucesso');
+    }
+
+
+}

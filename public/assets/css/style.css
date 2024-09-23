@@ -1,0 +1,374 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
+/* font-family: 'Inter', sans-serif; */
+
+body {
+    background-color: #f2f2f2;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* Tipografia */
+.fw-300 {
+    font-weight: 300;
+}
+span.produtoSemPreco.text-danger.bg-warning {
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    left: 33%;
+    top: 23px;
+}
+.nomeFarmacia {
+    margin: 0 auto;
+    font-weight: bold;
+    color: #046865;
+}
+.fw-400 {
+    font-weight: 400;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+.select2-container--default .select2-selection--single{
+    background-color: var(--verde-hover, #E6F2F1);
+    border: 1px solid var(--verde-detalhe, #B2D2D2);
+    box-shadow: none;
+    color: #386160;
+    height: 50px;
+    border-radius: 5px;
+}
+.fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 4px;
+   text-decoration:none;
+   color: #0E6664;
+
+
+  }
+  th.fc-col-header-cell.fc-day {
+    background-color: #CCEFEE;
+    border-radius: 2px;
+    border: none;
+    padding: 8px 16px;
+    color: #0E6664;
+}
+.fc .fc-daygrid-day-number{
+    text-decoration:none;
+    color: #0E6664;
+}
+.fc-view-harness.fc-view-harness-active {
+    border-radius: 5px;
+    border: 2px solid #CCEFEE;
+}
+span.select2-selection__arrow {
+    display: none;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 3;
+}
+.fw-600 {
+    font-weight: 600;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+.fw-800 {
+    font-weight: 800;
+}
+
+.fw-900 {
+    font-weight: 900;
+}
+
+.fs-12px {
+    font-size: 12px;
+}
+
+.fs-14px {
+    font-size: 14px;
+}
+
+.fs-16px {
+    font-size: 16px;
+}
+
+.fs-18px {
+    font-size: 18px;
+}
+
+.fs-20px {
+    font-size: 20px;
+}
+
+.fs-24px {
+    font-size: 24px;
+}
+
+@media (max-width: 765px) {
+    .fs-14px {
+        font-size: 10px;
+    }
+
+    .fs-16px {
+        font-size: 12px;
+    }
+
+    .fs-18px {
+        font-size: 14px;
+    }
+
+    .fs-20px {
+        font-size: 16px;
+    }
+
+    .fs-24px {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    /* width small */
+    .w-sm-100 {
+
+        width: 100%;
+    }
+}
+@media (max-width: 992px) {
+
+    /* width small */
+    .w-lg-100 {
+
+        width: 100%;
+    }
+}
+
+
+/* text */
+.text-green {
+    color: #0E6664
+}
+
+.text-green-2 {
+    color: #133D3C
+}
+
+.text-green-3 {
+    color: #00B1AC
+}
+
+.text-green-4 {
+    color: #386160
+}
+
+
+
+
+
+/* Auth */
+.auth .card {
+    border-radius: 8px;
+    border: 1px solid #CDCDCD;
+    background: #FFF;
+}
+
+.auth label {
+    font-weight: 500;
+    color: #133D3C;
+    padding-bottom: 3px
+}
+
+.auth input.form-control {
+    border-radius: 32px;
+    border: 1px solid var(--verde-detalhe, #B2D2D2);
+    background: var(--verde-hover, #E6F2F1);
+    padding: 8px 20px;
+    box-shadow: none;
+    font-weight: 500;
+}
+
+.auth input.form-control:focus {
+    border-color: #133D3C;
+}
+
+.auth .btn.btn-green {
+    padding: 8px 20px;
+}
+
+.auth input.form-control:-webkit-autofill,
+.auth input.form-control:-webkit-autofill:hover,
+.auth input.form-control:-webkit-autofill:focus,
+.auth input.form-control:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #E6F2F1 inset !important;
+    -webkit-text-fill-color: #133D3C
+}
+
+.auth input.form-control.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: none;
+}
+
+/* bg */
+.bg-green-light {
+    background: var(--verde-hover, #E6F2F1);
+}
+
+.border-green-light {
+    border: 1px solid var(--verde-detalhe, #B2D2D2);
+}
+
+
+/* botões */
+.btn.btn-green {
+    border-radius: 32px;
+    background: #383939;
+    color: white;
+    font-weight: 500;
+}
+
+.btn.btn-primary {
+    border-radius: 8px;
+    background: var(--verde-primario, #00B1AC);
+    border-color: #00B1AC;
+    box-shadow: none;
+    font-weight: 500;
+    border-width: 2px;
+}
+
+.btn.btn-primary:hover {
+    background: var(--verde-primario, #01a09b);
+    border-color: #01a09b;
+}
+
+.btn.btn-outline-primary {
+    border-radius: 8px;
+    box-shadow: none;
+    font-weight: 500;
+    border-color: #00B1AC;
+    color: #00B1AC;
+    border-width: 2px;
+}
+
+.btn.btn-outline-primary:hover {
+    background: var(--verde-primario, #00B1AC);
+    border-color: #00B1AC;
+    color: white
+}
+
+.btn.btn-primary-light {
+    background: #CCEFEE;
+    border-color: #CCEFEE;
+    color: #0E6664;
+}
+
+.btn.btn-primary-light:hover {
+    background: #00B1AC !important;
+    border-color: #00B1AC !important;
+    color: white
+}
+
+.btn.btn-primary-light-2 {
+    background: #B2D2D2;
+    border-color: #B2D2D2;
+    color: #0E6664;
+}
+
+img.w-100.rounded-3.border-green-light {
+    filter: opacity(.5) !important;
+    width: 278px !important;
+    height: 70px;
+    }
+
+    .row.capaExame {
+        font-size: 12px;
+        background: #fff;
+        padding-top: 12px;
+        border-radius: 7px;
+        color: #0e6664;
+    }
+.logoResultado {
+    width: 104px;
+    margin-left: 22%;
+
+}
+.apexcharts-tooltip.apexcharts-theme-light {
+    top: 50px !important;
+}
+.border-green-light.p-3.rounded-3.mb-4 {
+    font-size: 13px;
+}
+span.titleResult {
+    font-weight: 500;
+}
+
+.btn.btn-primary-light-2:hover {
+    background: #00B1AC;
+    border-color: #00B1AC;
+    color: white
+}
+
+.btn.btn-primary-light-3 {
+    border: 1px solid #0E6664;
+    background: #00B1AC1A;
+    color: #0E6664
+}
+
+.btn.btn-primary-light-3:hover {
+    background: #bce2e1;
+    border: 1px solid #0E6664;
+    color: #0E6664
+}
+
+
+/* modal cusotm */
+.modal.modal-custom {}
+
+.modal-backdrop {
+    background: transparent;
+}
+
+.modal.modal-custom {
+    background: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(4px);
+}
+
+.modal.modal-custom .modal-content {
+    border: none !important;
+    background: none !important;
+}
+
+
+
+/*  */
+
+.divisor-horarios {
+    width: 8px;
+    height: 60px;
+    background-color: #A245FF;
+    border-radius: 8px;
+}
+
+.cor-roxo {
+    background-color: #A245FF;
+}
+
+.cor-verde {
+    background-color: #1FCF31;
+}
+
+.cor-laranja {
+    background-color: #FE902B;
+}
+
+.cor-vermelho {
+    background-color: #FF4343;
+}
+
+.cor-azul {
+    background-color: #2E9BFF;
+}
