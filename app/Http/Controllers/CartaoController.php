@@ -48,6 +48,7 @@ class CartaoController extends Controller
     public function buscaCartao(Request $request)
     {
 
+
         $busca = $request->pesquisa;
 
         if ($busca == '') {
@@ -57,7 +58,7 @@ class CartaoController extends Controller
                 ->select('pacotes.descricao', 'cartaos.*','lojas.nfantasia')->paginate(30);
         } else {
 
-            if (auth()->user()->profile = 'admin') {
+            if (auth()->user()->profile == 'admin') {
                 $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
                 ->join('lojas','lojas.id','cartaos.loja_id')
                     ->select('pacotes.descricao', 'cartaos.*','lojas.nfantasia')
@@ -70,14 +71,18 @@ class CartaoController extends Controller
             } else {
 
                 $cartoes = Cartao::join('pacotes', 'pacotes.id', 'cartaos.pacote_id')
-                    ->select('pacotes.descricao', 'cartaos.*')
-                    ->where('loja_id', auth()->user()->loja_id)
-                    ->where('numero', 'like', '%' . $busca . '%')
-                    ->orWhere('descricao', 'like', '%' . $busca . '%')
+                ->join('lojas', 'lojas.id', 'cartaos.loja_id')
+                ->select('pacotes.descricao', 'cartaos.*')
+                ->where('lojas.id', auth()->user()->loja_id) // Restringe à loja logada
+                ->where(function ($query) use ($busca) {
+                    $query->orWhere('numero', 'like', '%' . $busca . '%')
+                          ->orWhere('pacotes.descricao', 'like', '%' . $busca . '%');
+                })
+                ->where('cartaos.status', 'Aberto') // Verifica o status do cartão
+                ->orderBy('cartaos.id', 'asc')
+                ->paginate(30);
 
-                    ->where('cartaos.status', 'Aberto')
-                    ->orderBy('cartaos.id', 'asc')
-                    ->paginate(30);
+
             }
         }
 

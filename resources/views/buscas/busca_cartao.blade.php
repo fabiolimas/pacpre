@@ -169,4 +169,4 @@
         @endforeach
     </tbody>
 </table>
-{{ $cartoes->links() }}
+
