@@ -23,7 +23,7 @@
 
 
 
-{{auth()->user()->profile}}
+
                                 </div>
                                 <!-- pesquisa -->
                                 <div class="pt-3">

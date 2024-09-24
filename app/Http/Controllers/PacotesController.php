@@ -96,7 +96,8 @@ $i=0;
 $numero=0;
 for($i=$request->num_inicio;$i<=$request->num_fim;$i++){
 
-    $cartoes=Cartao::where('numero',$i)->count();
+    $cartoes=Cartao::where('numero',$i)
+    ->where('loja_id', $request->loja_id)->count();
     if($cartoes !=0){
 
         return redirect()->back()->with('error','Essa numeração ja existe!');

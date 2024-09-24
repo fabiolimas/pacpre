@@ -8,6 +8,7 @@ use App\Http\Controllers\LojaController;
 use App\Http\Controllers\PacotesController;
 use App\Http\Controllers\PdvController;
 use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,17 @@ Route::prefix('lojas')->group(function () {
     Route::post('/nova-loja', [LojaController::class, 'store'])->name('lojas.store');
     Route::post('/atualiza-loja/{id}', [LojaController::class, 'update'])->name('lojas.update');
     Route::post('/busca-loja', [LojaController::class, 'buscaLoja'])->name('lojas.busca');
+
+});
+
+Route::prefix('usuarios')->group(function () {
+
+    Route::get('/', [UserController::class, 'index'])->name('usuarios.index');
+    Route::get('/novo-usuario', [UserController::class, 'create'])->name('usuarios.create');
+    Route::get('/edit-usuario/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
+    Route::post('/novo-usuario', [UserController::class, 'store'])->name('usuarios.store');
+    Route::post('/atualiza-usuario/{id}', [UserController::class, 'update'])->name('usuarios.update');
+    Route::post('/busca-usuario', [UserController::class, 'buscaLoja'])->name('usuarios.busca');
 
 });
 
