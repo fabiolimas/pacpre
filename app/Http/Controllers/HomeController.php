@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
 
         $dataInicio = $request->input('data_inicio', '2024-01-01'); // Padrão: 1º de Janeiro de 2024
-        $dataFim = $request->input('data_fim', now()->format('Y-m-d')); // Padrão: Data atual
+        $dataFim = $request->input('data_fim', now()->addDay()->format('Y-m-d')); // Padrão: Data atual
 
         $cartoesGerados = (new LarapexChart)->barChart()
             ->setHorizontal(false) // Gráfico de barras vertical
