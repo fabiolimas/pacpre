@@ -35,7 +35,7 @@
                                     style="">
                                     <div class="d-flex justify-content-center gap-2 align-items-center py-1">
                                         <i data-feather="image"></i>
-                                       Baixar Pontos do cartão
+                                       Baixar Pontos do pacote
                                     </div>
                                 </a>
                                 </div>

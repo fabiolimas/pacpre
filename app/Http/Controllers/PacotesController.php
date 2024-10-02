@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loja;
+use App\Models\Venda;
 use App\Models\Cartao;
 use App\Models\Pacote;
+use App\Models\Cliente;
+use App\Models\PacotesCliente;
 use App\Models\Servico;
 use Illuminate\Http\Request;
 
@@ -14,13 +17,16 @@ class PacotesController extends Controller
 
 
     $pacotes=Pacote::all();
+    $clientes=Cliente::all();
 
-    return view('pacotes.index',compact('pacotes'));
+    return view('pacotes.index',compact('pacotes','clientes'));
    }
 
    public function create(){
 
-    return view('pacotes.create');
+    $servicos=Servico::all();
+
+    return view('pacotes.create',compact('servicos'));
    }
 
    public function store(Request $request){
@@ -30,7 +36,7 @@ class PacotesController extends Controller
 
     $pacote->fill($request->all());
     $pacote->status='ativo';
-$pacote->valor=str_replace(',','.',$request->valor);
+    $pacote->valor=str_replace(',','.',$request->valor);
     $pacote->save();
 
     return redirect()->route('pacotes.index')->withSuccess('Pacote cadastrado com sucesso');
@@ -120,5 +126,44 @@ for($i=$request->num_inicio;$i<=$request->num_fim;$i++){
 return redirect()->back()->withSuccess('Cartões gerados com Sucesso');
 
 
+}
+
+// Venda Pacote
+
+
+public function venderPacote(Request $request)
+{
+
+
+    if($request->cliente == '' || $request->cliente == null){
+
+        return redirect()->back()->withError('Selecione um cliente válido');
+    }else{
+
+
+
+
+    $venda = new Venda();
+
+    $venda->loja_id = auth()->user()->loja_id;
+    $venda->pacote_id = $request->id;
+    $venda->valor = $request->valor;
+    $venda->quantidade = $request->quantidade;
+    $venda->status = 'Vendido';
+    $venda->cliente_id=$request->cliente;
+    $venda->save();
+
+    $pacoteCliente= new PacotesCliente();
+
+    $pacoteCliente->cliente_id=$request->cliente;
+    $pacoteCliente->pacote_id=$request->id;
+    $pacoteCliente->quantidade=$request->quantidade;
+    $pacoteCliente->save();
+
+
+
+
+    return redirect()->back()->withSuccess('Pacote vendido com sucesso');
+    }
 }
 }

@@ -21,18 +21,13 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name'=>'Gerente',
-            'email'=>'gerente@email.com',
+            'name'=>'Loja',
+            'email'=>'loja@email.com',
             'password'=>bcrypt('password'),
-            'profile'=>'gerente'
+            'profile'=>'loja',
+            'loja_id'=>1
         ]);
 
-        User::create([
-            'name'=>'Vendedor',
-            'email'=>'vendedor@email.com',
-            'password'=>bcrypt('password'),
-            'profile'=>'vendedor'
-        ]);
 
     }
 }

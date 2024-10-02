@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('loja_id')->constrained()->onDelete('cascade');
-            $table->foreignId('cartao_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pacote_id')->constrained()->onDelete('cascade');
             $table->integer('quantidade')->nullable();
             $table->double('valor', 10,5);
             $table->timestamps();

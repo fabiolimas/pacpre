@@ -61,6 +61,22 @@ class LojaSeeder extends Seeder
 
         ]);
 
+        $loja=Loja::create([
+            'rsocial'=>'José Luciano Vieira Costa Eireli - EPP',
+            'nfantasia'=>'Imagem Foto - Juazeiro',
+            'cnpj'=>'16.480.857/0006-09',
+            'insc_estadual'=>'46845193',
+            'telefone'=>' (74)3621-7373',
+            'cep'=>'48903-470',
+            'endereco'=>'Av. Rua Américo Alves, 14',
+            'complemento'=>'',
+            'bairro'=>'Centro',
+            'cidade'=>'Juazeiro',
+            'uf'=>'BA',
+            'email'=>'loja10@fotoimagem.com.br'
+
+        ]);
+
     }
 
 }

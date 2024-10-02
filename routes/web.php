@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartaoController;
+use App\Http\Controllers\ClienteController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,7 @@ Route::prefix('pacotes')->group(function () {
     Route::post('/novo-pacote', [PacotesController::class, 'store'])->name('pacotes.store');
     Route::post('/atualiza-pacote/{id}', [PacotesController::class, 'update'])->name('pacotes.update');
     Route::post('/busca-pacotes', [PacotesController::class, 'buscaPacote'])->name('pacotes.busca');
-
+    Route::post('/vender-pacote/{id}', [PacotesController::class, 'venderPacote'])->name('pacotes.vender');
 
 
 
@@ -88,6 +89,17 @@ Route::prefix('usuarios')->group(function () {
 
 });
 
+Route::prefix('clientes')->group(function () {
+
+    Route::get('/', [ClienteController::class, 'index'])->name('clientes.index');
+    Route::get('/novo-clientes', [ClienteController::class, 'create'])->name('clientes.create');
+    Route::get('/edit-clientes/{id}', [ClienteController::class, 'edit'])->name('clientes.edit');
+    Route::post('/novo-clientes', [ClienteController::class, 'store'])->name('clientes.store');
+    Route::post('/atualiza-clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
+    Route::post('/busca-clientes', [ClienteController::class, 'buscaLoja'])->name('clientes.busca');
+
+});
+
 Route::prefix('pdv')->group(function () {
 
     Route::get('/', [PdvController::class, 'index'])->name('pdv.index');
@@ -96,7 +108,7 @@ Route::prefix('pdv')->group(function () {
     Route::get('/historico/{id}', [PdvController::class, 'historico'])->name('pdv.historico');
     Route::post('/nova-venda', [PdvController::class, 'store'])->name('pdv.store');
     Route::post('/atualiza-venda/{id}', [PdvController::class, 'update'])->name('pdv.update');
-    Route::post('/busca-venda', [PdvController::class, 'buscaCartaoVendido'])->name('pdv.busca');
+    Route::get('/busca-venda', [PdvController::class, 'buscaCartaoVendido'])->name('pdv.busca');
 
 
 

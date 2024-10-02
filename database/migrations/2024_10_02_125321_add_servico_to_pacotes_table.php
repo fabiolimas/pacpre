@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('historicos', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('pacotes_clientes_id')->constrained()->onDelete('cascade');
-            $table->string('descricao');
-            $table->integer('quantidade');
-            $table->timestamps();
+        Schema::table('pacotes', function (Blueprint $table) {
+            $table->foreignId('servico_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('historicos');
+        Schema::table('pacotes', function (Blueprint $table) {
+          $table->dropColumn('servico_id');
+        });
     }
 };

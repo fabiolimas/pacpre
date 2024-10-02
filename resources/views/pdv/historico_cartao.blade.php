@@ -20,7 +20,7 @@
                                 <div
                                     class="d-sm-flex text-center text-md-start justify-content-between gap-2 align-items-center">
                                     <h1 class="fs-4 fw-600 mb-4 text-green-2">
-                                        <i data-feather="credit-cartd"></i> Historico Cartão Foto-Pré
+                                        <i data-feather="credit-cartd"></i> Historico Pacote Foto-Pré
                                     </h1>
 
 
@@ -28,16 +28,15 @@
 
                                 </div>
                                 <div class="row">
-                                    <p><b>Cartão:</b> {{ $cartao->numero }} - {{ $cartao->descricao }} <b>Saldo:
-                                        </b>{{ $cartao->quantidade }}</p>
+                                    <p><b>Pacote:</b> {{ $cartao->descricao }} <b>Saldo:
+                                        </b>{{ $cartao->saldo }}</p>
                                 </div>
 
                                 <div class="table-responsive mt-5">
                                     <table class="table text-green-2">
                                         <thead>
                                             <tr class="fs-18px ">
-                                                <th scope="col"><span
-                                                        class="text-green-2 d-inline-block pb-3">Cartão</span></th>
+
                                                 <th scope="col"><span
                                                         class="text-green-2 d-inline-block pb-3">Descrição</span></th>
                                                 <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade
@@ -60,7 +59,7 @@
 
                                             @foreach ($historicos as $historico)
                                                 <tr>
-                                                    <td>{{ $historico->cartao_id }}</td>
+
                                                     <td>{{ $historico->descricao }}</td>
                                                     <td>{{ $historico->quantidade }}</td>
                                                     {{-- <td>{{$historico->saldo+$historico->quantidade}}</td> --}}
@@ -72,7 +71,7 @@
                                             @endforeach
                                             <tr>
                                                 <td colspan="1"><b>Total </b></td>
-                                                <td></td>
+
                                                 <td colspan="2"><b>{{$total}}</b></td>
                                             </tr>
                                         </tbody>

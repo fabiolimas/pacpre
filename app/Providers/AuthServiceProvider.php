@@ -29,8 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('loja', function (User $user) {
             return $user->profile === 'loja' ? true : false;
         });
-        Gate::define('vendedor', function (User $user) {
-            return $user->profile === 'vendedor' ? true : false;
+        Gate::define('cliente', function (User $user) {
+            return $user->profile === 'cliente' ? true : false;
         });
     }
 }

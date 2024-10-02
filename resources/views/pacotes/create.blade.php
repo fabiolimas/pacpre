@@ -31,10 +31,22 @@
                                     <label for="descricao">Descrição</label>
                                     <input type="text" class="form-control" name="descricao" id="descricao">
                                 </div>
+
+                                <div class="form-group mt-3">
+                                    <label for="descricao">Serviço</label>
+                                    <select class="form-select" name="servico_id">
+                                        <option>Selecione o serviço</option>
+                                        @foreach($servicos as $servico)
+
+                                        <option value="{{$servico->id}}">{{$servico->descricao}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group mt-3">
                                     <label for="quantidade">Quantidade de fotos</label>
                                     <input type="text" class="form-control" name="quantidade" id="quantidade">
                                 </div>
+
                                 <div class="form-group mt-3">
                                     <label for="valor">Valor</label>
                                     <input type="text" class="form-control" name="valor" id="valor">

@@ -42,6 +42,15 @@
                     </a>
                 </li>
                 <li class="">
+                    <a href="{{route('servicos.index')}}"
+                        class="sidebar-link d-flex align-items-center @if (Route::is('servicos.*')) active @endif gap-4 ">
+                        <i data-feather="image"></i>
+                        <div>
+                            Serviços
+                        </div>
+                    </a>
+                </li>
+                <li class="">
                     <a href="{{route('pacotes.index')}}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
                         <i data-feather="package"></i>
@@ -92,7 +101,7 @@
             @endcan
 
             @can('admin')
-            <li class="">
+            {{-- <li class="">
                 <a href="{{route('cartoes.index')}}"
                     class="sidebar-link d-flex align-items-center @if (Route::is('cartoes.*')) active @endif gap-4 ">
                     <i data-feather="credit-card"></i>
@@ -100,16 +109,8 @@
                         Cartões Pré
                     </div>
                 </a>
-            </li>
-                <li class="">
-                    <a href="{{route('servicos.index')}}"
-                        class="sidebar-link d-flex align-items-center @if (Route::is('servicos.*')) active @endif gap-4 ">
-                        <i data-feather="image"></i>
-                        <div>
-                            Serviços
-                        </div>
-                    </a>
-                </li>
+            </li> --}}
+
             @endcan
 
 
@@ -126,6 +127,24 @@
             @endcan
             @can('loja')
             <li class="">
+                <a href="{{ route('clientes.index') }}"
+                    class="sidebar-link d-flex align-items-center @if (Route::is('clientes.*')) active @endif  gap-4 ">
+                    <i data-feather="user"></i>
+                    <div>
+                       Clientes
+                    </div>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{route('pacotes.index')}}"
+                    class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
+                    <i data-feather="package"></i>
+                    <div>
+                       Pacotes
+                    </div>
+                </a>
+            </li>
+            {{-- <li class="">
                 <a href="{{route('cartoes.index')}}"
                     class="sidebar-link d-flex align-items-center @if (Route::is('cartoes.*')) active @endif gap-4 ">
                     <i data-feather="credit-card"></i>
@@ -133,7 +152,7 @@
                         Cartões Pré
                     </div>
                 </a>
-            </li>
+            </li> --}}
             <li class="">
                     <a href="{{route('pdv.index')}}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('pdv.*')) active @endif  gap-4 ">
