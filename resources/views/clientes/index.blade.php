@@ -86,7 +86,7 @@
 
 
                                                     <td>
-                                                        <a href="{{ route('usuarios.edit', $cliente->id) }}"><span
+                                                        <a href="{{ route('clientes.edit', $cliente->id) }}"><span
                                                                 class="text-green"><i data-feather="edit"></i></span></a>
                                                     </td>
 

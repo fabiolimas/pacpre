@@ -40,6 +40,7 @@
                                     @endcan
 
                                 </div>
+                                @canany(['admin','loja'])
                                 <!-- pesquisa -->
                                 <div class="pt-3">
                                     <div class="mb-3 position-relative">
@@ -55,10 +56,12 @@
                                     </div>
 
                                 </div>
+                                @endcanany
 
 
                                 <div class="table-responsive mt-5">
                                     <table class="table text-green-2 resultBusca">
+                                        @canany(['admin','loja'])
                                         <thead>
                                             <tr class="fs-18px ">
                                                 <th scope="col"><span
@@ -428,6 +431,70 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    @endcanany
+
+
+                                    @can('cliente')
+                                    <table class="table text-green-2 resultBusca">
+                                        <thead>
+                                            <tr class="fs-18px ">
+
+                                                <th scope="col">#</th>
+
+                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Descrição</span></th>
+                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade de fotos</span>
+                                                </th>
+                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Valor</span>
+                                                </th>
+
+                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Saldo</span></th>
+
+                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Histórico</span></th>
+
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pacotes as $cartao)
+                                                <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->quantidade == 0) text-danger @endif">
+                                                    <td>{{ $loop->index + 1 }}</td>
+
+                                                    <td class="text-green">
+                                                        <span class="text-green">
+
+                                                            {{ $cartao->descricao }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-green">{{ $cartao->quantidade }}</span>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="text-green">R$ {{ number_format($cartao->valor, 2, ',', '.') }}</span>
+                                                    </td>
+
+                                                    <td>
+
+                                                            <span class="text-green">{{ $cartao->saldo }}
+                                                            </span>
+
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{route('pdv.historico',$cartao->id)}}" title="Histórico" class="m-3"><i
+                                                                class="fa-solid fa-clock-rotate-left"></i></a>
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    {{ $pacotes->links() }}
+                                    @endcan
                                 </div>
 
 

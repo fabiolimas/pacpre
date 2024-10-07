@@ -44,7 +44,7 @@
                                             <div class="col-md-4 mt-3">
                                                 <div class="form-group">
                                                     <label for="cpf">CPF</label>
-                                                    <input type="text" class="form-control" name="cpf" id="cpf">
+                                                    <input type="text" class="form-control" name="cpf" id="cpf" maxlength="11">
                                                 </div>
                                             </div>
                                             <div class="col-md-8 mt-3">

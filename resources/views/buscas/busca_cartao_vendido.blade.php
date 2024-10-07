@@ -88,6 +88,7 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <div class="erroServico text-danger"></div>
                                         </div>
                                     </div>
 
@@ -104,6 +105,8 @@
                                                 name="quantidade" id="quantidade-{{$cartao->id}}" placeholder="0" required />
                                         </div>
                                     </div>
+
+
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -129,7 +132,13 @@
                         }
                     });
 
-                    let resultado = $('.resultBusca');
+                    let resultado = $('.erroServico');
+
+                    $('#servico_id-{{$cartao->id}}').change(function(){
+
+                        resultado.html('');
+
+                    });
 
 
                     $('#confirmaBaixa-{{$cartao->id}}').click(function() {
@@ -146,8 +155,14 @@
                             }, // Dados a serem enviados para o servidor
                             success: function(response) {
 
-                               window.location.reload();
-                                resultado.html(response.status);
+                                if(response.status){
+                                    resultado.html(response.status);
+                                }else{
+
+                                    window.location.reload();
+                                }
+
+
                             },
                             error: function(result) {
                                 console.log(result);

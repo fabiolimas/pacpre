@@ -69,7 +69,7 @@ class HomeController extends Controller
                 ->setHeight(315); // Altura do gráfico
 
 
-        } else {
+        } elseif(auth()->user()->profile == 'loja') {
 
             $cartoesVendidos = Venda::where('loja_id', auth()->user()->loja_id)
                 ->where('status', 'Vendido')
@@ -88,6 +88,9 @@ class HomeController extends Controller
                 ->setDataset($dataset) // Definir o total de cartões vendidos como dataset
                 ->setColors(['#0E6664']) // Cor das fatias do gráfico
                 ->setHeight(315); // Altura do gráfico
+
+        }else{
+            return view('home',compact('dataInicio', 'dataFim'));
 
         }
 

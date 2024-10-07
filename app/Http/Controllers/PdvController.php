@@ -95,9 +95,6 @@ class PdvController extends Controller
 
         if($pac->servico_id == $request->servico_id){
 
-
-
-
         $baixar=$request->quantidade;
         $quantidade_atual=$pacote->quantidade;
         $usado=$pacote->usado;
@@ -127,14 +124,15 @@ class PdvController extends Controller
 
 
 
-            return redirect()->back()->withSuccess('Creditos baixados com sucesso');
-            // return response()->json(['success'=>'Creditos baixados com sucesso']);
+          return redirect()->back()->withSuccess('Creditos baixados com sucesso');
+             //return response()->json(['success'=>'Creditos baixados com sucesso']);
 
         }
 
     }else{
 
-        return redirect()->back()->withError('Esse serviço não pertençe a este pacote');
+        // return redirect()->back()->withError('Esse serviço não pertençe a este pacote');
+        return response()->json(['status'=>'Este serviço não pertence a este pacote']);
     }
 
 

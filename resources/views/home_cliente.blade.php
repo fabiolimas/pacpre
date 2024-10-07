@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Gráficos')
+@section('title', 'Home')
 @section('content')
     <div class="">
         <div class="row gy-4 graficos">
@@ -46,39 +46,24 @@
             </div> --}}
 
             <!-- Quantidade de cartões vendidos -->
-            @canany(['admin','loja'])
             <div class="col-12 col-lg-8 col-xl-12">
                 <div class="card">
                     <div class="card-body px-4 py-4">
 
                         <div class="d-md-flex align-items-center justify-content-between gap-3">
-                            <h2 class="fs-24px fw-600 text-green-2 ">Cartões Vendidos</h2>
+                            <h2 class="fs-24px fw-600 text-green-2 ">Meus Pacotes</h2>
                             <div class="d-flex gap-2">
                                 <div class="">
 
                                 </div>
-                                <form method="GET" action="#">
-                                    <div class="row mb-4">
-                                        <div class="col-md-5">
-                                            <label for="data_inicio">Data Inicial:</label>
-                                            <input type="date" name="data_inicio" class="form-control" value="{{ $dataInicio }}">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label for="data_fim">Data Final:</label>
-                                            <input type="date" name="data_fim" class="form-control" value="{{ $dataFim }}">
-                                        </div>
-                                        <div class="col-md-2 d-flex align-items-end">
-                                            <button type="submit" class="btn btn-primary"> <i data-feather="search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
+
                                 <div class="">
 
                                 </div>
                             </div>
                         </div>
                         <div id="graficoCartoesVendidos">
-                        {!! $graficoCartoesVendidos->container() !!}
+
                     </div>
                         <div class="line-chart mt-4 pt-3 position-relative pb-3">
                             <div class="line-chart-vertical"></div>
@@ -91,7 +76,6 @@
                     </div>
                 </div>
             </div>
-            @endcanany
 
 
 
@@ -103,11 +87,8 @@
 @endsection
 
 @section('scripts')
-@canany(['admin','loja'])
-    <!-- scripts apexchart -->
-    <script src="{{ $graficoCartoesVendidos->cdn() }}"></script>
-    {{-- {{ $cartoesGerados->script() }} --}}
-    {{ $graficoCartoesVendidos->script() }}
 
-@endcanany
+
+
+
 @endsection

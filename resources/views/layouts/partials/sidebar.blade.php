@@ -22,6 +22,17 @@
                     </div>
                 </a>
             </li>
+            @can('cliente')
+            <li class="">
+                <a href="{{route('pacotes.index')}}"
+                    class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
+                    <i data-feather="package"></i>
+                    <div>
+                       Meus Pacotes
+                    </div>
+                </a>
+            </li>
+            @endcan
             @can('admin')
               <li class="">
                     <a href="{{ route('lojas.index') }}"
@@ -179,6 +190,7 @@
                 </a>
             </li> --}}
         @endcanany
+
             <li class="">
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();

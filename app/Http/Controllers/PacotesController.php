@@ -19,6 +19,13 @@ class PacotesController extends Controller
     $pacotes=Pacote::all();
     $clientes=Cliente::all();
 
+    if(auth()->user()->profile == 'cliente'){
+        $cliente=Cliente::where('user_id', auth()->user()->id)->first();
+        $pacotes=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
+        ->select('pacotes_clientes.*','pacotes.descricao','pacotes.quantidade','pacotes.valor')
+        ->where('cliente_id', $cliente->id)->paginate(30);
+    }
+
     return view('pacotes.index',compact('pacotes','clientes'));
    }
 

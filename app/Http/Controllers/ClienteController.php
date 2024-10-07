@@ -33,7 +33,7 @@ class ClienteController extends Controller
         $usaurio->fill($request->all());
 
         $usaurio->profile="cliente";
-
+        $usaurio->password=$request->cpf;
 
         $usaurio->save();
 
@@ -49,6 +49,7 @@ class ClienteController extends Controller
         $cliente->bairro=$request->bairro;
         $cliente->cidade=$request->cidade;
         $cliente->status="ativo";
+        $cliente->user_id=$usaurio->id;
 
         $cliente->save();
 
@@ -59,23 +60,32 @@ class ClienteController extends Controller
 
        public function edit(Request $request){
 
-        $usuario=User::find($request->id);
-
-        $loja=Loja::find($usuario->loja_id);
-
-        $lojas=Loja::all();
+        $cliente=Cliente::find($request->id);
 
 
 
-        return view('usuarios.edit', compact('lojas','loja','usuario'));
+
+
+
+
+        return view('clientes.edit', compact('cliente'));
     }
 
     public function update(Request $request){
 
         $usuario=User::find($request->id);
+        $cliente=Cliente::where('email', $usuario->email)->first();
 
         if($request->password == null){
-            $usuario->update(['name'=>$request->name, 'email'=>$request->email,'loja_id'=>$request->loja_id]);
+            $usuario->update(['name'=>$request->name]);
+            $cliente->update([
+                'nome'=>$request->name,
+                'endereco'=>$request->endereco,
+                'cpf'=>$request->cpf,
+                'cidade'=>$request->cidade,
+                'estado'=>$request->estado,
+
+            ]);
 
         }else{
 
