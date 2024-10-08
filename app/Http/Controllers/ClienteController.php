@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Loja;
 use App\Models\User;
 use App\Models\Cliente;
+use App\Mail\ContatoCliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ClienteController extends Controller
 {
@@ -52,6 +54,15 @@ class ClienteController extends Controller
         $cliente->user_id=$usaurio->id;
 
         $cliente->save();
+
+        if($cliente->save()){
+
+            $sent=Mail::to(users:$request->email, name:$request->name)->send(mailable: new ContatoCliente([
+                'fromName'=>$request->name,
+                'email'=>$request->email,
+                'cpf'=>$request->cpf,
+            ]));
+        }
 
 
         return redirect()->route('clientes.index')->withSuccess('Cliente cadastrado com sucesso');
