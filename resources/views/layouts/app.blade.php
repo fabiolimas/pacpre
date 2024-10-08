@@ -65,7 +65,7 @@
     </script>
 
     <!-- scripts -->
-
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
     {{-- Scripts incorporados --}}
     @yield('scripts')

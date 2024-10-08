@@ -11,7 +11,7 @@
             </svg>
         </button>
 
-
+        @canany(['admin','loja'])
         <ul class="list-unstyled">
             <li class="">
                 <a href="{{ route('home') }}"
@@ -22,6 +22,7 @@
                     </div>
                 </a>
             </li>
+            @endcanany
             @can('cliente')
             <li class="">
                 <a href="{{route('pacotes.index')}}"

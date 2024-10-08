@@ -13,13 +13,13 @@
             <!-- mobile -->
             <ul class="list-unstyled d-flex d-lg-none gap-2 my-auto ms-auto align-items-center">
                 <!-- user -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="d-flex align-items-center gap-2 nav-link-user">
                         <div class="bg-img-user-mobile"
                             style="background-image: url({{ asset('assets/img/ilustracoes/user-adm.png') }})">
                         </div>
                     </a>
-                </li>
+                </li> --}}
             </ul>
 
             <button class="navbar-toggler d-lg-none p-0 shadow-none ms-2 border-0" type="button"
@@ -41,9 +41,9 @@
                         @else
 
                         @endif
-                        <div class="bg-img-user rounded-3 border border-secondary"
+                        {{-- <div class="bg-img-user rounded-3 border border-secondary"
                             style="background-image: url({{ asset(auth()->user()->img_perfil ?? 'assets/img/ilustracoes/profile.png') }})">
-                        </div>
+                        </div> --}}
                     </a>
 
                 </div>
