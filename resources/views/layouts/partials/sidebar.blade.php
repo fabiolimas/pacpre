@@ -37,7 +37,7 @@
             @can('admin')
               <li class="">
                     <a href="{{ route('lojas.index') }}"
-                        class="sidebar-link d-flex align-items-center @if (Route::is('usuarios.*')) active @endif  gap-4 ">
+                        class="sidebar-link d-flex align-items-center @if (Route::is('lojas.*')) active @endif  gap-4 ">
                         <i data-feather="list"></i>
                         <div>
                            Lojas

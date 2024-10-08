@@ -81,6 +81,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+
                                             @foreach ($pacotes as $pacote)
                                                 <tr class=" table-tr-cliente fw-500 fs-18px " data-bs-toggle="modal"
                                                     data-bs-target="@can('admin')#detalhes-produto-{{ $pacote->id }} @endcan @can('loja') #vender-produto-{{ $pacote->id }} @endcan"
@@ -456,6 +457,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @can('cliente')
+
+                                            @if($pacotes->count() == 0)
+                                            <p class="text-danger">Você ainda não possui nenhum pacote de fotos!</p>
+
+
+                                            @endif
+                                            @endcan
                                             @foreach ($pacotes as $cartao)
                                                 <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->quantidade == 0) text-danger @endif">
                                                     <td>{{ $loop->index + 1 }}</td>

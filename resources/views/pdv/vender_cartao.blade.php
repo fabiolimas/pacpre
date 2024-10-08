@@ -8,7 +8,7 @@
         <div class="row gy-4">
 
             <!-- Lista -->
-            <div class="col-12">
+            <div class="col-md-12 col-sm-12">
                 <div class="card min-vh-100">
                     <div class="card-body px-2 px-md-4 py-4">
 
