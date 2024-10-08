@@ -8,6 +8,7 @@ class HomeCliente extends Controller
 {
     public function index(){
 
+
         return view('home_cliente');
     }
 }

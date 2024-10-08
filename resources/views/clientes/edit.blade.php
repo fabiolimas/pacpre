@@ -113,12 +113,12 @@
                                             </div>
 
 
-                                            <div class="col-md-6 mt-3">
+                                            {{-- <div class="col-md-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="password">Senha</label>
                                                     <input type="password" class="form-control" name="password" id="password" value="{{$cliente->password}}">
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                     </div>
 
