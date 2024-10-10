@@ -13,13 +13,13 @@
                         </div>
 
 
-
+{{--
                         <div class="alert alert-warning" role="alert">
                             email: adm@email.com<br>
                             email: loja@email.com<br>
 
                             senha: password
-                        </div>
+                        </div> --}}
 
 
 
