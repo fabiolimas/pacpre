@@ -55,7 +55,7 @@ class PacotesController extends Controller
    public function update(Request $request){
 
     $pacote=Pacote::find($request->id);
-
+    $pacote->valor=str_replace(',','.',$request->valor);
     $pacote->update($request->all());
 
 
