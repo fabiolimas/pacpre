@@ -59,6 +59,9 @@
                                                         class="text-green-2 d-inline-block pb-3">Telefone</span>
                                                 </th>
                                                 <th scope="col"><span
+                                                    class="text-green-2 d-inline-block pb-3">CPF</span>
+                                            </th>
+                                                <th scope="col"><span
                                                         class="text-green-2 d-inline-block pb-3">E-mail</span>
                                                 </th>
                                                 <th scope="col"><span
@@ -78,6 +81,9 @@
                                                     </td>
                                                     <td>
                                                         <span class="text-green">{{ $cliente->telefone }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-green">{{ $cliente->cpf }}</span>
                                                     </td>
                                                     <td>
                                                         <span class="text-green">{{ $cliente->email }}</span>
