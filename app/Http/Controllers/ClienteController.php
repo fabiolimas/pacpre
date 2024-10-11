@@ -72,7 +72,7 @@ class ClienteController extends Controller
             $sent=Mail::to(users:$request->email, name:$request->name)->send(mailable: new ContatoCliente([
                 'fromName'=>$request->name,
                 'email'=>$request->email,
-                'cpf'=>$request->cpf,
+                'cpf'=>$cpf,
             ]));
         }
 
