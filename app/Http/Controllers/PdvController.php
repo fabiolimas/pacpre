@@ -118,6 +118,12 @@ class PdvController extends Controller
             $usado=0;
         }
 
+        if($saldo== null){
+            $saldo=$quantidade_atual;
+        }
+
+
+
         if($baixar > $saldo){
 
             return redirect()->back()->with('error','Cartão não possui crédito suficiente');
@@ -143,6 +149,7 @@ class PdvController extends Controller
              //return response()->json(['success'=>'Creditos baixados com sucesso']);
 
         }
+
 
     }else{
 
