@@ -24,11 +24,12 @@
             Nome: {{$cliente->nome}}<br>
             Telefone: {{$cliente->telefone}}<br>
             Email: {{$cliente->email}}
+            Quantidade de Pacotes: {{$pacotes->count()}}
         </div>
         @foreach ($pacotes as $cartao)
 
 
-            <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->quantidade == 0) text-danger @endif">
+            <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->saldo == 0) text-danger @endif">
                 <td>{{ $loop->index + 1 }}</td>
 
                 <td class="text-green">
