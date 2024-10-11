@@ -42,18 +42,25 @@ class PdvController extends Controller
     public function buscaCartaoVendido(Request $request){
 
         $busca=$request->pesquisa;
+        $buscacpf=$request->pesquisacpf;
 
         $servicos=Servico::all();
 
-        if($busca==''){
+        if($busca=='' || $buscacpf == ''){
 
 
             $pacotes=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
-            ->select('pacotes.descricao','pacotes.valor','pacotes.quantidade as qtd', 'pacotes_clientes.*')
+            ->join('clientes','clientes.id','pacotes_clientes.cliente_id')
+            ->select(
+                'pacotes.descricao',
+                'pacotes.valor',
+                'pacotes.quantidade as qtd',
+                 'pacotes_clientes.*',
+                 'clientes.cpf','clientes.nome')
 
 
-            ->where('cliente_id', $busca)
-
+            // ->where('cliente_id', $busca)
+            ->Where('clientes.cpf',$buscacpf)
 
             ->orderBy('pacotes_clientes.id','asc')
             ->paginate(30);
@@ -65,21 +72,27 @@ class PdvController extends Controller
 
 
                $pacotes=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
-               ->select('pacotes.descricao','pacotes.valor','pacotes.quantidade as qtd', 'pacotes_clientes.*')
+               ->join('clientes','clientes.id','pacotes_clientes.cliente_id')
+               ->select(
+                'pacotes.descricao',
+                'pacotes.valor',
+                'pacotes.quantidade as qtd',
+                 'pacotes_clientes.*',
+                 'clientes.cpf','clientes.nome')
 
-
-               ->where('cliente_id', $busca)
-
+            //    ->where('cliente_id', $busca)
+               ->Where('clientes.cpf',$buscacpf)
 
                ->orderBy('pacotes_clientes.id','asc')
                ->paginate(30);
 
 
+
            }
 
-
+           $cliente=Cliente::where('cpf', $buscacpf)->first();
         if($pacotes->count() >=1){
-            return view('buscas.busca_cartao_vendido',compact('pacotes','servicos'));
+            return view('buscas.busca_cartao_vendido',compact('pacotes','servicos','cliente'));
         }else{
             return response()->json(['status'=>'Cliente não possui nenhum pacote']);
         }

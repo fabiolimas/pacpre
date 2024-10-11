@@ -44,7 +44,7 @@
                             </div>
 
                             <div class=" mb-3">
-                                <label for="password" class=" col-form-label text-md-end">{{ __('Password') }}</label>
+                                <label for="password" class=" col-form-label text-md-end">Senha</label>
 
                                 <div class="position-relative">
                                     <input id="password" type="password"

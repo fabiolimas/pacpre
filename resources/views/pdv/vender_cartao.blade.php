@@ -27,28 +27,50 @@
 
 
                                 </div>
-                                <!-- pesquisa -->
-                                <div class="pt-3">
-                                    <div class="mb-3 position-relative">
-                                        <label for="pesquisa" class="visually-hidden">Cliente</label>
-                                       <select class="form-select" name="cliente" id="pesquisa">
-                                        <option value="">Selecione o cliente</option>
-                                        @foreach($clientes as $cliente)
 
-                                        <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
+                                <div class="row">
 
-                                        @endforeach
+                                    {{-- <div class="col-md-6">
+                                        <div class="pt-3">
+                                            <div class="mb-3 position-relative">
+                                                <label for="pesquisa" class="">Nome</label>
+                                                <select class="form-select" name="cliente" id="pesquisa">
+                                                    <option value="">Selecione o cliente</option>
+                                                    @foreach ($clientes as $cliente)
+                                                        <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                                                    @endforeach
 
-                                       </select>
+                                                </select>
 
-                                        <button type="submit" class="btn btn-none text-green p-1"
-                                            style="position: absolute; top:3px; right: 20px">
-                                            <i data-feather="search"></i>
-                                        </button>
+                                                <button type="submit" class="btn btn-none text-green p-1"
+                                                    style="position: absolute; top:3px; right: 20px">
+                                                    <i data-feather="search"></i>
+                                                </button>
 
+                                            </div>
+
+                                        </div>
                                     </div>
+                                    <div class="col-md-6"> --}}
+                                        <!-- pesquisa -->
 
+
+                                        <div class="pt-3">
+                                            <div class="mb-3 position-relative">
+                                                <label for="pesquisa" class="">CPF</label>
+                                                <input type="text" id="pesquisacpf" class="form-control" maxlength="11">
+
+                                                <button type="submit" class="btn btn-none text-green p-1"
+                                                    style="position: absolute; top:3px; right: 20px">
+                                                    <i data-feather="search"></i>
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
+
 
 
                                 <div class="table-responsive mt-5">
@@ -56,15 +78,17 @@
                                         <thead>
                                             <tr class="fs-18px ">
 
-                                                        <th scope="col"><span
-                                                            class="text-green-2 d-inline-block pb-3">Descrição</span></th>
-                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade de fotos</span>
+                                                <th scope="col"><span
+                                                        class="text-green-2 d-inline-block pb-3">Descrição</span></th>
+                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade
+                                                        de fotos</span>
                                                 </th>
-                                                <th scope="col"><span class="text-green-2 d-inline-block pb-3">Valor</span>
+                                                <th scope="col"><span
+                                                        class="text-green-2 d-inline-block pb-3">Valor</span>
                                                 </th>
 
-                                                        <th scope="col"><span
-                                                            class="text-green-2 d-inline-block pb-3">Saldo</span></th>
+                                                <th scope="col"><span
+                                                        class="text-green-2 d-inline-block pb-3">Saldo</span></th>
 
 
 
@@ -94,8 +118,8 @@
 
     <script>
         $(document).ready(function() {
-        $('#pesquisa').select2();
-    });
+            $('#pesquisa').select2();
+        });
         $('document').ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -112,6 +136,30 @@
                     type: "get",
                     data: {
                         pesquisa: $('#pesquisa').val(),
+
+
+                    }, // Dados a serem enviados para o servidor
+                    success: function(response) {
+
+                        resultado.html(response);
+                        resultado.html(response.status);
+                    },
+                    error: function(result) {
+                        console.log(result);
+                    }
+
+
+
+                });
+            });
+
+            $('#pesquisacpf').change(function() {
+
+                $.ajax({
+                    url: "{{ route('pdv.busca') }}", // Arquivo PHP que processará a busca
+                    type: "get",
+                    data: {
+                        pesquisacpf: $('#pesquisacpf').val(),
 
 
                     }, // Dados a serem enviados para o servidor

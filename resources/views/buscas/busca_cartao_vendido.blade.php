@@ -2,7 +2,7 @@
     <thead>
         <tr class="fs-18px ">
 
-            <th scope="col">#</th>
+            <th scope="col"><span class="text-green-2 d-inline-block pb-3">#</span></th>
 
             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Descrição</span></th>
             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade de fotos</span>
@@ -19,7 +19,15 @@
         </tr>
     </thead>
     <tbody>
+        <div class="dadosCliente">
+            Dados do cliente:<br>
+            Nome: {{$cliente->nome}}<br>
+            Telefone: {{$cliente->telefone}}<br>
+            Email: {{$cliente->email}}
+        </div>
         @foreach ($pacotes as $cartao)
+
+
             <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->quantidade == 0) text-danger @endif">
                 <td>{{ $loop->index + 1 }}</td>
 
