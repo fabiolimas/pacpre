@@ -47,7 +47,7 @@ class ClienteController extends Controller
         $usaurio->fill($request->all());
 
         $usaurio->profile="cliente";
-        $usaurio->password=$request->cpf;
+        $usaurio->password=$cpf;
 
         $usaurio->save();
 
