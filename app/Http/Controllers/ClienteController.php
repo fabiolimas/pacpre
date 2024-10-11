@@ -29,8 +29,20 @@ class ClienteController extends Controller
 
        public function store(Request $request){
 
-        $usaurio=new User();
+        $cpf=str_replace( array( '-', '.' ), '',  $request->cpf);
 
+
+        $cliente=Cliente::where('cpf',$cpf )
+        ->orWhere('email', $request->email)
+
+        ->count();
+
+        if($cliente >=1){
+
+            return redirect()->route('clientes.index')->withError('Cliente já possui cadastro');
+
+        }else{
+            $usaurio=new User();
 
         $usaurio->fill($request->all());
 
@@ -46,7 +58,7 @@ class ClienteController extends Controller
         $cliente->data_nascimento=$request->data_nascimento;
         $cliente->telefone=$request->telefone;
         $cliente->email=$request->email;
-        $cliente->cpf=$request->cpf;
+        $cliente->cpf=$cpf;
         $cliente->endereco=$request->endereco;
         $cliente->bairro=$request->bairro;
         $cliente->cidade=$request->cidade;
@@ -67,6 +79,10 @@ class ClienteController extends Controller
 
         return redirect()->route('clientes.index')->withSuccess('Cliente cadastrado com sucesso');
 
+        }
+
+
+
        }
 
        public function edit(Request $request){
@@ -83,7 +99,7 @@ class ClienteController extends Controller
     }
 
     public function update(Request $request){
-
+        $cpf=str_replace( array( '-', '.' ), '',  $request->cpf);
         $usuario=User::find($request->id);
         $cliente=Cliente::where('email', $usuario->email)->first();
 
@@ -92,7 +108,7 @@ class ClienteController extends Controller
             $cliente->update([
                 'nome'=>$request->name,
                 'endereco'=>$request->endereco,
-                'cpf'=>$request->cpf,
+                'cpf'=>$cpf,
                 'cidade'=>$request->cidade,
                 'estado'=>$request->estado,
 
@@ -100,7 +116,7 @@ class ClienteController extends Controller
 
         }else{
 
-            $usuario->update(['password'=>$request->password]);
+            $usuario->update(['password'=>$cpf]);
             $usuario->update(['name'=>$request->name, 'email'=>$request->email,'loja_id'=>$request->loja_id]);
         }
 

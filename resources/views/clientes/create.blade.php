@@ -32,37 +32,37 @@
                                             <div class="col-md-8 mt-3">
                                                 <div class="form-group">
                                                     <label for="name">Nome</label>
-                                                    <input type="text" class="form-control" name="name" id="name">
+                                                    <input type="text" class="form-control" name="name" id="name" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mt-3">
                                                 <div class="form-group">
                                                     <label for="telefone">Telefone</label>
-                                                    <input type="text" class="form-control" name="telefone" id="telefone">
+                                                    <input type="text" class="form-control" name="telefone" id="telefone" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mt-3">
                                                 <div class="form-group">
                                                     <label for="cpf">CPF</label>
-                                                    <input type="text" class="form-control" name="cpf" id="cpf" maxlength="11">
+                                                    <input type="text" class="form-control" name="cpf" id="cpf" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-8 mt-3">
                                                 <div class="form-group">
                                                     <label for="endereco">Endereço</label>
-                                                    <input type="text" class="form-control" name="endereco" id="endereco">
+                                                    <input type="text" class="form-control" name="endereco" id="endereco" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mt-3">
                                                 <div class="form-group">
                                                     <label for="bairro">Bairro</label>
-                                                    <input type="text" class="form-control" name="bairro" id="bairro">
+                                                    <input type="text" class="form-control" name="bairro" id="bairro" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="cidade">Cidade</label>
-                                                    <input type="text" class="form-control" name="cidade" id="cidade">
+                                                    <input type="text" class="form-control" name="cidade" id="cidade" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 mt-3">
@@ -107,7 +107,7 @@
                                             <div class="col-md-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="email">E-mail</label>
-                                                    <input type="email" class="form-control" name="email" id="email">
+                                                    <input type="email" class="form-control" name="email" id="email" required>
                                                 </div>
                                             </div>
 
@@ -143,4 +143,21 @@
         </div>
 
     </div>
+
+    <script src="https://unpkg.com/imask"></script>
+    <script>
+
+const element = document.getElementById('cpf');
+const telefone=document.querySelector('#telefone');
+const maskOptions = {
+  mask: '000.000.000-00'
+};
+const maskTelefone={
+    mask:'(00) 00000-0000'
+};
+const mask = IMask(element, maskOptions);
+const maskPhone=IMask(telefone, maskTelefone);
+        </script>
+
+
 @endsection

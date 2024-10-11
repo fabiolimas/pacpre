@@ -144,4 +144,20 @@
         </div>
 
     </div>
+
+
+    <script src="https://unpkg.com/imask"></script>
+    <script>
+
+const element = document.getElementById('cpf');
+const telefone=document.querySelector('#telefone');
+const maskOptions = {
+  mask: '000.000.000-00'
+};
+const maskTelefone={
+    mask:'(00) 00000-0000'
+};
+const mask = IMask(element, maskOptions);
+const maskPhone=IMask(telefone, maskTelefone);
+        </script>
 @endsection
