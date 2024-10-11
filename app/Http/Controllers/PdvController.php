@@ -41,8 +41,9 @@ class PdvController extends Controller
 
     public function buscaCartaoVendido(Request $request){
 
+        $cpf=str_replace( array( '-', '.' ), '',  $request->pesquisacpf);
         $busca=$request->pesquisa;
-        $buscacpf=$request->pesquisacpf;
+        $buscacpf=$cpf;
 
         $servicos=Servico::all();
 

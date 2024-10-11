@@ -58,7 +58,7 @@
                                         <div class="pt-3">
                                             <div class="mb-3 position-relative">
                                                 <label for="pesquisa" class="">CPF</label>
-                                                <input type="text" id="pesquisacpf" class="form-control" maxlength="11">
+                                                <input type="text" id="pesquisacpf" class="form-control" >
 
                                                 <button type="submit" class="btn btn-none text-green p-1"
                                                     style="position: absolute; top:31px; right: 20px">
@@ -115,7 +115,18 @@
         </div>
 
     </div>
+    <script src="https://unpkg.com/imask"></script>
+    <script>
 
+const element = document.getElementById('pesquisacpf');
+
+const maskOptions = {
+  mask: '000.000.000-00'
+};
+
+const mask = IMask(element, maskOptions);
+
+        </script>
     <script>
         $(document).ready(function() {
             $('#pesquisa').select2();
