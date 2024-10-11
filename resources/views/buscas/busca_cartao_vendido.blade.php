@@ -23,7 +23,7 @@
             Dados do cliente:<br>
             Nome: {{$cliente->nome}}<br>
             Telefone: {{$cliente->telefone}}<br>
-            Email: {{$cliente->email}}
+            Email: {{$cliente->email}}<br>
             Quantidade de Pacotes: {{$pacotes->count()}}
         </div>
         @foreach ($pacotes as $cartao)
@@ -32,22 +32,22 @@
             <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->saldo == 0) text-danger @endif">
                 <td>{{ $loop->index + 1 }}</td>
 
-                <td class="text-green">
-                    <span class="text-green">
+                <td class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">
+                    <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">
 
                         {{ $cartao->descricao }}</span>
                 </td>
                 <td>
-                    <span class="text-green">{{ $cartao->qtd }}</span>
+                    <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">{{ $cartao->qtd }}</span>
                 </td>
 
                 <td>
-                    <span class="text-green">R$ {{ number_format($cartao->valor, 2, ',', '.') }}</span>
+                    <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">R$ {{ number_format($cartao->valor, 2, ',', '.') }}</span>
                 </td>
 
                 <td>
 
-                        <span class="text-green">{{ $cartao->saldo }}
+                        <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">{{ $cartao->saldo }}
                         </span>
 
                 </td>
