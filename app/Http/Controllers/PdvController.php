@@ -112,12 +112,13 @@ class PdvController extends Controller
         $baixar=$request->quantidade;
         $quantidade_atual=$pacote->quantidade;
         $usado=$pacote->usado;
+        $saldo=$pacote->saldo;
 
         if($usado == null){
             $usado=0;
         }
 
-        if($quantidade_atual < $baixar){
+        if($baixar > $saldo){
 
             return redirect()->back()->with('error','Cartão não possui crédito suficiente');
 
