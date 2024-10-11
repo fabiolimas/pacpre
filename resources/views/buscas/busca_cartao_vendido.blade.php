@@ -52,10 +52,10 @@
 
                 </td>
                 <td>
-                    <a href="{{route('pdv.historico',$cartao->id)}}" title="Histórico" class="m-3"><i
+                    <a href="{{route('pdv.historico',$cartao->id)}}" title="Histórico" class="m-3" ><i
                             class="fa-solid fa-clock-rotate-left"></i></a>|<i class="fa-solid fa-download"
-                        data-bs-toggle="modal" data-bs-target="#baixar-produto-{{ $cartao->id }}" title="Baixar"
-                        style="cursor:pointer; margin-left:10px"></i>
+                        data-bs-toggle="modal" data-bs-target="@if($cartao->saldo == 0 )  @else #baixar-produto-{{ $cartao->id }} @endif" title="Baixar"
+                        style="cursor:pointer; margin-left:10px" ></i>
                 </td>
 
 
