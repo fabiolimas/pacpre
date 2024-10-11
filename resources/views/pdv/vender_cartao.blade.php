@@ -61,8 +61,8 @@
                                                 <input type="text" id="pesquisacpf" class="form-control" maxlength="11">
 
                                                 <button type="submit" class="btn btn-none text-green p-1"
-                                                    style="position: absolute; top:3px; right: 20px">
-                                                    <i data-feather="search"></i>
+                                                    style="position: absolute; top:31px; right: 20px">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
                                                 </button>
 
                                             </div>
