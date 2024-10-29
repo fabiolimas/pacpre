@@ -6,6 +6,7 @@ use App\Models\Loja;
 use App\Models\User;
 use App\Models\Cliente;
 use App\Mail\ContatoCliente;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,7 +32,7 @@ class ClienteController extends Controller
 
         $cpf=str_replace( array( '-', '.' ), '',  $request->cpf);
 
-
+        //dd($request);
         $cliente=Cliente::where('cpf',$cpf )
         ->orWhere('email', $request->email)
 
@@ -44,7 +45,15 @@ class ClienteController extends Controller
         }else{
             $usaurio=new User();
 
+
         $usaurio->fill($request->all());
+        if($request->email == null){
+
+            $usaurio->email='clientebalcao'.date('dmyHis',strtotime(now())).'@email.com';
+        }else{
+
+            $usaurio->email=$request->email;
+        }
 
         $usaurio->profile="cliente";
         $usaurio->password=$cpf;
@@ -57,7 +66,14 @@ class ClienteController extends Controller
         $cliente->nome=$request->name;
         $cliente->data_nascimento=$request->data_nascimento;
         $cliente->telefone=$request->telefone;
-        $cliente->email=$request->email;
+        if($request->email == null){
+
+            $cliente->email='clientebalcao'.date('dmyHis',strtotime(now())).'@email.com';
+        }else{
+
+            $cliente->email=$request->email;
+        }
+
         $cliente->cpf=$cpf;
         $cliente->endereco=$request->endereco;
         $cliente->bairro=$request->bairro;
@@ -69,11 +85,19 @@ class ClienteController extends Controller
 
         if($cliente->save()){
 
-            $sent=Mail::to(users:$request->email, name:$request->name)->send(mailable: new ContatoCliente([
-                'fromName'=>$request->name,
-                'email'=>$request->email,
-                'cpf'=>$cpf,
-            ]));
+            if($request->email == null){
+
+
+            }else{
+
+                $sent=Mail::to(users:$request->email, name:$request->name)->send(mailable: new ContatoCliente([
+                    'fromName'=>$request->name,
+                    'email'=>$request->email,
+                    'cpf'=>$cpf,
+                ]));
+            }
+
+
         }
 
 
