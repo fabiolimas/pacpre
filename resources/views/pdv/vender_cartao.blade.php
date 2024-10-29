@@ -12,7 +12,7 @@
                 <div class="card min-vh-100">
                     <div class="card-body px-2 px-md-4 py-4">
 
-
+                        <div class="msg"></div>
 
                         <!-- lista -->
                         <div class="mt-2 pt-1 ">

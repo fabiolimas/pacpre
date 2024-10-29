@@ -126,7 +126,8 @@ class PdvController extends Controller
 
         if($baixar > $saldo){
 
-            return redirect()->back()->with('error','Cartão não possui crédito suficiente');
+            //return redirect()->back()->with('error','Cartão não possui crédito suficiente');
+            return response()->json(['status'=>'Este serviço não pertence a este pacote']);
 
         }else{
 
@@ -145,8 +146,8 @@ class PdvController extends Controller
 
 
 
-          return redirect()->back()->withSuccess('Creditos baixados com sucesso');
-             //return response()->json(['success'=>'Creditos baixados com sucesso']);
+          //return redirect()->back()->withSuccess('Creditos baixados com sucesso');
+            return response()->json(['success'=>'Creditos baixados com sucesso']);
 
         }
 

@@ -142,6 +142,8 @@
                     });
 
                     let resultado = $('.erroServico');
+                    let result=$('.msg');
+                    let modal=$('#baixar-produto-{{ $cartao->id }}');
 
                     $('#servico_id-{{$cartao->id}}').change(function(){
 
@@ -166,11 +168,13 @@
 
                                 if(response.status){
                                     resultado.html(response.status);
-                                }else{
 
+                                }else if(response.success){
+
+                                    alert(response.success);
+                                    modal.modal('hide');
                                     window.location.reload();
                                 }
-
 
                             },
                             error: function(result) {
