@@ -14,8 +14,12 @@ feather.replace();
     <thead>
         <tr class="fs-18px ">
             <th scope="col"><span
-                    class="text-green-2 d-inline-block pb-3">Descrição</span></th>
-            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Status</span>
+                    class="text-green-2 d-inline-block pb-3">Fantasia</span></th>
+            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Razao Social</span>
+            </th>
+            <th scope="col"><span class="text-green-2 d-inline-block pb-3">CNPJ</span>
+            </th>
+            <th scope="col"><span class="text-green-2 d-inline-block pb-3">E-mail</span>
             </th>
 
                     <th scope="col"><span
@@ -26,17 +30,23 @@ feather.replace();
         </tr>
     </thead>
     <tbody>
-        @foreach ($servicos as $servico)
+        @foreach ($lojas as $loja)
             <tr class=" table-tr-cliente fw-500 fs-18px " data-bs-toggle="modal"
-                data-bs-target="#detalhes-produto-{{ $servico->id }}"
+                data-bs-target="#detalhes-produto-{{ $loja->id }}"
                 style="cursor:pointer">
                 <td class="text-green">
                     <span  class="text-green">
 
-                {{ $servico->descricao }}</span>
+                {{ $loja->nfantasia }}</span>
                 </td>
                 <td>
-                    <span class="text-green">{{ $servico->status }}</span>
+                    <span class="text-green">{{ $loja->rsocial }}</span>
+                </td>
+                <td>
+                    <span class="text-green">{{ $loja->cnpj }}</span>
+                </td>
+                <td>
+                    <span class="text-green">{{ $loja->email }}</span>
                 </td>
 
                 <td>
@@ -48,7 +58,7 @@ feather.replace();
 
             </tr>
 
-            <div class="modal modal-custom fade" id="detalhes-produto-{{ $servico->id }}" tabindex="-1"
+            <div class="modal modal-custom fade" id="detalhes-produto-{{ $loja->id }}" tabindex="-1"
                 data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md border-0" role="document">
                     <div class="modal-content bg-transparent ">
@@ -62,13 +72,13 @@ feather.replace();
 
                                   </div>
 
-                                <form action="{{route('pacotes.update',$servico->id)}}" method="post"
+                                <form action="{{route('pacotes.update',$loja->id)}}" method="post"
                                     id="form-remover">
 
                                     @csrf
 
 
-                                    <input type="hidden" name="id" value="{{ $servico->id }}">
+                                    <input type="hidden" name="id" value="{{ $loja->id }}">
                                     <div class="mb-2 pb-3">
                                         <div class="mb-0 position-relative">
                                             <label for="descricao" class="form-label text-green fw-500 fs-18px w-100">
@@ -80,7 +90,7 @@ feather.replace();
                                             <div class="position-relative">
                                                 <input type="text"
                                                     class="form-control form-control-custom @error('descricao') is-invallid @enderror fs-18px fw-500"
-                                                    name="descricao" id="descricao" value="{{ $servico->descricao }}"
+                                                    name="descricao" id="descricao" value="{{ $loja->descricao }}"
                                                     />
 
 
@@ -99,7 +109,7 @@ feather.replace();
                                             <div class="position-relative">
                                                 <input type="text"
                                                     class="form-control form-control-custom @error('quantidade') is-invallid @enderror fs-18px fw-500"
-                                                    name="quantidade" id="quantidade" value="{{ $servico->quantidade }}"
+                                                    name="quantidade" id="quantidade" value="{{ $loja->quantidade }}"
                                                     placeholder="0" />
 
 

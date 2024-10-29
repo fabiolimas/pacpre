@@ -54,27 +54,27 @@ class LojaController extends Controller
 
 
 
-    public function buscaServico(Request $request){
+    public function buscaLoja(Request $request){
 
      $busca=$request->pesquisa;
 
      if($busca==''){
 
-         $servicos=Servico::all();
+         $lojas=Loja::all();
 
 
      }else{
-         $servicos=Servico::where('descricao', 'like', '%'.$busca.'%')->get();
+         $lojas=Loja::where('nfantasia', 'like', '%'.$busca.'%')->get();
      }
 
 
 
 
 
-     if($servicos->count() >=1){
-         return view('buscas.busca_servico',compact('servicos'));
+     if($lojas->count() >=1){
+         return view('buscas.busca_loja',compact('lojas'));
      }else{
-         return response()->json(['status'=>'Servico não encontrado']);
+         return response()->json(['status'=>'Loja não encontrada']);
      }
  }
  }

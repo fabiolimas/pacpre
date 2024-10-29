@@ -274,7 +274,7 @@
         $('#pesquisa').keyup(function() {
 
             $.ajax({
-                url: "{{ route('servicos.busca') }}", // Arquivo PHP que processará a busca
+                url: "{{ route('lojas.busca') }}", // Arquivo PHP que processará a busca
                 type: "post",
                 data: {
                     pesquisa: $('#pesquisa').val(),

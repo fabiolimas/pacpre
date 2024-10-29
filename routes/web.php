@@ -85,7 +85,7 @@ Route::prefix('usuarios')->group(function () {
     Route::get('/edit-usuario/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
     Route::post('/novo-usuario', [UserController::class, 'store'])->name('usuarios.store');
     Route::post('/atualiza-usuario/{id}', [UserController::class, 'update'])->name('usuarios.update');
-    Route::post('/busca-usuario', [UserController::class, 'buscaLoja'])->name('usuarios.busca');
+    Route::post('/busca-usuario', [UserController::class, 'buscaUsuario'])->name('usuarios.busca');
 
 });
 

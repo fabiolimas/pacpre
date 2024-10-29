@@ -42,7 +42,7 @@ feather.replace();
 
 
                 <td>
-                    <a href="{{route('usuario.edit', $usuario->id)}}"><span
+                    <a href="{{route('usuarios.edit', $usuario->id)}}"><span
                     class="text-green"><i data-feather="edit"></i></span></a>
                 </td>
 

@@ -80,11 +80,12 @@ public function update(Request $request){
 
     if($busca==''){
 
-        $usuarios=User::all();
+        $usuarios=User::where('profile','loja')->get();
 
 
     }else{
-        $usuarios=User::where('name', 'like', '%'.$busca.'%')->get();
+        $usuarios=User::where('name', 'like', '%'.$busca.'%')
+        ->where('profile','loja')->get();
     }
 
 
