@@ -29,32 +29,32 @@
         @foreach ($pacotes as $cartao)
 
 
-            <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->saldo == 0) text-danger @endif">
+            <tr class=" table-tr-cliente fw-500 fs-18px @if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @endif">
                 <td>{{ $loop->index + 1 }}</td>
 
-                <td class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">
-                    <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">
+                <td class="@if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @else text-green @endif ">
+                    <span class="@if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @else text-green @endif ">
 
                         {{ $cartao->descricao }}</span>
                 </td>
                 <td>
-                    <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">{{ $cartao->qtd }}</span>
+                    <span class="@if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @else text-green @endif ">{{ $cartao->qtd }}</span>
                 </td>
 
                 <td>
-                    <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">R$ {{ number_format($cartao->valor, 2, ',', '.') }}</span>
+                    <span class="@if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @else text-green @endif ">R$ {{ number_format($cartao->valor, 2, ',', '.') }}</span>
                 </td>
 
                 <td>
 
-                        <span class="@if ($cartao->saldo == 0) text-danger @else text-green @endif ">{{ $cartao->saldo }}
+                        <span class="@if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @else text-green @endif ">{{ $cartao->saldo }}
                         </span>
 
                 </td>
                 <td>
                     <a href="{{route('pdv.historico',$cartao->id)}}" title="Histórico" class="m-3" ><i
                             class="fa-solid fa-clock-rotate-left"></i></a>|<i class="fa-solid fa-download"
-                        data-bs-toggle="modal" data-bs-target="@if($cartao->saldo == 0 )  @else #baixar-produto-{{ $cartao->id }} @endif" title="Baixar"
+                        data-bs-toggle="modal" data-bs-target="@if($cartao->saldo == 0  && $cartao->usado != null)  @else #baixar-produto-{{ $cartao->id }} @endif" title="Baixar"
                         style="cursor:pointer; margin-left:10px" ></i>
                 </td>
 
