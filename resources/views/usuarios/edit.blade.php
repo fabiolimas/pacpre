@@ -46,7 +46,11 @@
                                                 <div class="form-group">
                                                     <label for="loja">Loja</label>
                                                     <select name="loja_id" class="form-select">
+                                                        @if($usuario->loja_id == null)
+
+                                                        @else
                                                         <option value="{{$loja->id}}" selected>{{$loja->nfantasia}}</option>
+                                                        @endif
                                                         @foreach($lojas as $loja)
                                                         <option value="{{$loja->id}}">{{$loja->nfantasia}}</option>
                                                         @endforeach
