@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Baixa em cartão')
+@section('title', 'PDV')
 
 @section('content')
 

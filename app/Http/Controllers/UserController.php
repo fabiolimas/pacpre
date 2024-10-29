@@ -11,7 +11,7 @@ class UserController extends Controller
  public function index(){
 
 
-    $usuarios=User::where('profile','loja')->get();
+    $usuarios=User::whereIn('profile',['loja','admin'])->get();
     return view('usuarios.index', compact('usuarios'));
  }
 
