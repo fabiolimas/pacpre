@@ -3,7 +3,7 @@
 @section('content')
     <div class="">
         <div class="row gy-4 graficos">
-            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> <!-- ApexCharts JS -->
+             <!-- ApexCharts JS -->
             <!-- Faturamento -->
             {{-- <div class="col-12 col-lg-4 col-xl-5">
                 <div class="card">
@@ -80,6 +80,8 @@
                         <div id="graficoCartoesVendidos">
                         {!! $graficoCartoesVendidos->container() !!}
                     </div>
+
+
                         <div class="line-chart mt-4 pt-3 position-relative pb-3">
                             <div class="line-chart-vertical"></div>
                             <div class="position-absolute d-flex w-100 justify-content-between">
@@ -91,6 +93,7 @@
                     </div>
                 </div>
             </div>
+            {{-- {{dd($graficoCartoesVendidos->script())}} --}}
             @endcanany
 
 
@@ -100,14 +103,17 @@
 
     </div>
 
-@endsection
-
-@section('scripts')
-@canany(['admin','loja'])
+    @canany(['admin','loja'])
     <!-- scripts apexchart -->
     <script src="{{ $graficoCartoesVendidos->cdn() }}"></script>
     {{-- {{ $cartoesGerados->script() }} --}}
     {{ $graficoCartoesVendidos->script() }}
 
+
 @endcanany
+
+@endsection
+
+@section('scripts')
+
 @endsection

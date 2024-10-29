@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Loja;
 use App\Models\Venda;
 use Illuminate\Http\Request;
+use App\Charts\CartoesVendidos;
 use Illuminate\Support\Facades\DB;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
@@ -25,7 +26,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index(Request $request, CartoesVendidos $chart)
     {
 
         $dataInicio = $request->input('data_inicio', '2024-01-01'); // Padrão: 1º de Janeiro de 2024
@@ -51,6 +52,8 @@ class HomeController extends Controller
                 ->select('loja_id', DB::raw('COUNT(*) as total_cartoes'))
                 ->get();
 
+
+
             // Obtenha os rótulos (nomes das lojas) e os dados (total de cartões vendidos)
             $labels = [];
             $dataset = [];
@@ -63,10 +66,13 @@ class HomeController extends Controller
 
             // Criar o gráfico do tipo PieChart
             $graficoCartoesVendidos = (new LarapexChart)->pieChart()
+            ->setTitle('Cartões vendidos')
                 ->setLabels($labels) // Definir os nomes das lojas como rótulos
                 ->setDataset($dataset) // Definir o total de cartões vendidos por loja como dataset
                 ->setColors(['#0E6664', '#FF4560', '#775DD0', '#00E396']) // Definir cores diferentes para as fatias
                 ->setHeight(315); // Altura do gráfico
+
+                //dd($graficoCartoesVendidos);
 
 
         } elseif(auth()->user()->profile == 'loja') {
@@ -89,6 +95,9 @@ class HomeController extends Controller
                 ->setColors(['#0E6664']) // Cor das fatias do gráfico
                 ->setHeight(315); // Altura do gráfico
 
+                //dd($labels);
+
+
         }else{
             return view('home',compact('dataInicio', 'dataFim'));
 
@@ -99,6 +108,6 @@ class HomeController extends Controller
 
 
 
-        return view('home', compact('dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'));
+        return view('home', compact('dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'),['chart' => $chart->build()]);
     }
 }
