@@ -54,6 +54,15 @@
                     </a>
                 </li>
                 <li class="">
+                    <a href="{{ route('clientes.index') }}"
+                        class="sidebar-link d-flex align-items-center @if (Route::is('clientes.*')) active @endif  gap-4 ">
+                        <i data-feather="users"></i>
+                        <div>
+                           Clientes
+                        </div>
+                    </a>
+                </li>
+                <li class="">
                     <a href="{{route('servicos.index')}}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('servicos.*')) active @endif gap-4 ">
                         <i data-feather="image"></i>
@@ -137,7 +146,7 @@
                     </a>
                 </li> --}}
             @endcan
-            @can('loja')
+            @canany('loja')
             <li class="">
                 <a href="{{ route('clientes.index') }}"
                     class="sidebar-link d-flex align-items-center @if (Route::is('clientes.*')) active @endif  gap-4 ">

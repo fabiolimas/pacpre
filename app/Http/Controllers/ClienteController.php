@@ -100,8 +100,10 @@ class ClienteController extends Controller
 
     public function update(Request $request){
         $cpf=str_replace( array( '-', '.' ), '',  $request->cpf);
-        $usuario=User::find($request->id);
-        $cliente=Cliente::where('email', $usuario->email)->first();
+
+
+        $cliente=Cliente::find($request->id);
+        $usuario=User::where('email',$cliente->email)->first();
 
         if($request->password == null){
             $usuario->update(['name'=>$request->name]);
@@ -128,27 +130,27 @@ class ClienteController extends Controller
        }
 
 
-       public function buscaUsuario(Request $request){
+       public function buscaCliente(Request $request){
 
         $busca=$request->pesquisa;
 
         if($busca==''){
 
-            $usuarios=User::all();
+            $clientes=Cliente::all();
 
 
         }else{
-            $usuarios=User::where('name', 'like', '%'.$busca.'%')->get();
+            $clientes=Cliente::where('nome', 'like', '%'.$busca.'%')->get();
         }
 
 
 
 
 
-        if($usuarios->count() >=1){
-            return view('buscas.busca_usuario',compact('usuarios'));
+        if($clientes->count() >=1){
+            return view('buscas.busca_cliente',compact('clientes'));
         }else{
-            return response()->json(['status'=>'Usuário não encontrado']);
+            return response()->json(['status'=>'Cliente não encontrado']);
         }
     } //
 }
