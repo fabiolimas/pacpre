@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Loja;
 use App\Models\User;
 use App\Models\Cliente;
+use App\Models\Servico;
 use App\Mail\ContatoCliente;
-use DateTime;
 use Illuminate\Http\Request;
+use App\Models\PacotesCliente;
 use Illuminate\Support\Facades\Mail;
 
 class ClienteController extends Controller
@@ -176,5 +178,48 @@ class ClienteController extends Controller
         }else{
             return response()->json(['status'=>'Cliente não encontrado']);
         }
-    } //
+    }
+
+    public function pacoteCliente(Request $request){
+
+        $cpf=str_replace( array( '-', '.' ), '',  $request->pesquisacpf);
+        $busca=$request->pesquisa;
+        $buscacpf=$cpf;
+
+        $cliente=Cliente::find($request->id);
+
+
+
+        $servicos=Servico::all();
+
+            $pacotes=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
+            ->join('clientes','clientes.id','pacotes_clientes.cliente_id')
+            ->select(
+                'pacotes.descricao',
+                'pacotes.valor',
+                'pacotes.quantidade as qtd',
+                 'pacotes_clientes.*',
+                 'clientes.cpf','clientes.nome')
+
+
+            // ->where('cliente_id', $busca)
+            ->Where('pacotes_clientes.cliente_id',$cliente->id)
+
+            ->orderBy('pacotes_clientes.id','asc')
+            ->paginate(30);
+
+
+
+
+
+
+
+
+
+            return view('clientes.pacotes_cliente',compact('pacotes','servicos','cliente'));
+
+    }
+
+
+
 }

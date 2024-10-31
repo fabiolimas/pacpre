@@ -92,8 +92,11 @@
 
 
                                                     <td>
-                                                        <a href="{{ route('clientes.edit', $cliente->id) }}"><span
-                                                                class="text-green"><i data-feather="edit"></i></span></a>
+                                                        <a href="{{ route('clientes.edit', $cliente->id) }}" title="Editar"><span
+                                                                class="text-green"><i data-feather="edit"></i></span>
+                                                            </a>|
+                                                                <a href="{{ route('clientes.pacotes', $cliente->id) }}" title="Pactoes Cliente"><span
+                                                                    class="text-green"><i data-feather="credit-card"></i></span></a>
                                                     </td>
 
 

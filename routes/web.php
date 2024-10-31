@@ -96,6 +96,7 @@ Route::prefix('clientes')->group(function () {
     Route::get('/edit-clientes/{id}', [ClienteController::class, 'edit'])->name('clientes.edit');
     Route::post('/novo-clientes', [ClienteController::class, 'store'])->name('clientes.store');
     Route::post('/atualiza-clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
+    Route::get('/pacotes-cliente/{id}', [ClienteController::class, 'pacoteCliente'])->name('clientes.pacotes');
     Route::post('/busca-clientes', [ClienteController::class, 'buscaCliente'])->name('clientes.busca');
 
 });
