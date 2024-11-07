@@ -83,7 +83,7 @@ class HomeController extends Controller
 
                 ->setLabels($labels) // Definir os nomes das lojas como rótulos
                 ->setDataset($dataset) // Definir o total de cartões vendidos por loja como dataset
-                ->setColors(['#0E6664', '#FF4560', '#775DD0', '#00E396', '#00b396', '#00a396']) // Definir cores diferentes para as fatias
+                ->setColors(['#0E6664', '#FF4560', '#775DD0', '#00E396', '#00b396', '#ffc107']) // Definir cores diferentes para as fatias
                 ->setHeight(315); // Altura do gráfico
 
                 //dd($graficoCartoesVendidos);
