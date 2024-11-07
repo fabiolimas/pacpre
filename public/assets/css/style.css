@@ -39,6 +39,10 @@ span.produtoSemPreco.text-danger.bg-warning {
     width: 328px;
     margin-bottom: 46px;
 }
+
+table{
+    text-transform: uppercase;
+}
 .select2-container--default .select2-selection--single, #pesquisacpf{
     background-color: var(--verde-hover, #E6F2F1);
     border: 1px solid var(--verde-detalhe, #B2D2D2);

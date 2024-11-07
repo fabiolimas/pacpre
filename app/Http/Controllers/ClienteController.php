@@ -65,7 +65,7 @@ class ClienteController extends Controller
         $cliente= new Cliente();
 
 
-        $cliente->nome=$request->name;
+        $cliente->nome=strtoupper($request->name);
         $cliente->data_nascimento=$request->data_nascimento;
         $cliente->telefone=$request->telefone;
         if($request->email == null){
@@ -132,9 +132,9 @@ class ClienteController extends Controller
         $usuario=User::where('email',$cliente->email)->first();
 
         if($request->password == null){
-            $usuario->update(['name'=>$request->name]);
+            $usuario->update(['name'=>strtoupper($request->name)]);
             $cliente->update([
-                'nome'=>$request->name,
+                'nome'=>strtoupper($request->name),
                 'endereco'=>$request->endereco,
                 'cpf'=>$cpf,
                 'cidade'=>$request->cidade,
@@ -145,7 +145,7 @@ class ClienteController extends Controller
         }else{
 
             $usuario->update(['password'=>$cpf]);
-            $usuario->update(['name'=>$request->name, 'email'=>$request->email,'loja_id'=>$request->loja_id]);
+            $usuario->update(['name'=>strtoupper($request->name), 'email'=>$request->email,'loja_id'=>$request->loja_id]);
         }
 
 
