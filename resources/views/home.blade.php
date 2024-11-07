@@ -47,7 +47,7 @@
 
             <!-- Quantidade de cartões vendidos -->
             @canany(['admin','loja'])
-            <div class="col-12 col-lg-8 col-xl-12">
+            <div class="col-12 col-lg-8 col-xl-6">
                 <div class="card">
                     <div class="card-body px-4 py-4">
 
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-8 col-xl-12">
+            <div class="col-12 col-lg-8 col-xl-6">
                 <div class="card">
                     <div class="card-body px-4 py-4">
 
