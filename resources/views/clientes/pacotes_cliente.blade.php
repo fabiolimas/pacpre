@@ -20,7 +20,7 @@
                                 <div
                                     class="d-sm-flex text-center text-md-start justify-content-between gap-2 align-items-center">
                                     <h1 class="fs-4 fw-600 mb-4 text-green-2">
-                                        <i data-feather="credit-cartd"></i> Pacotes Cliente
+                                        <i data-feather="credit-cartd"></i> Pacotes Cliente - {{$cliente->nome}}
                                     </h1>
 
 
@@ -105,12 +105,12 @@
 
                                                 <td>
 
-                                                        <span class="@if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @else text-green @endif ">{{ $cartao->saldo }}
+                                                        <span class="@if ($cartao->saldo == 0 && $cartao->usado != null) text-danger @else text-green @endif ">@if($cartao->saldo == null && $cartao->usado == null) {{$cartao->quantidade}} @else {{ $cartao->saldo }} @endif
                                                         </span>
 
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('pdv.historico',$cartao->id)}}" title="Histórico" class="m-3" ><i
+                                                    <a href="{{route('pdv.historico',['pacote'=>$cartao->id, 'cliente'=>$cliente->id])}}" title="Histórico" class="m-3" ><i
                                                             class="fa-solid fa-clock-rotate-left"></i></a>
                                                 </td>
 

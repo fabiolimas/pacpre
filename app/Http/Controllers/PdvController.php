@@ -168,15 +168,17 @@ class PdvController extends Controller
 
         $historicos=Historico::join('pacotes_clientes','pacotes_clientes.id','historicos.pacotes_clientes_id')
         ->select('historicos.*', 'pacotes_clientes.saldo')
-        ->where('pacotes_clientes_id',$request->id)
+        ->where('pacotes_clientes_id',$request->pacote)
 
         ->get();
+
+        $cliente=Cliente::find($request->cliente);
 
 
         $total=0;
         $cartao=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
         ->select('pacotes_clientes.*','pacotes.descricao')
-        ->find($request->id);
+        ->find($request->pacote);
 
 
 
@@ -184,7 +186,7 @@ class PdvController extends Controller
 
 
 
-        return view('pdv.historico_cartao',compact('historicos','cartao','total'));
+        return view('pdv.historico_cartao',compact('cliente','historicos','cartao','total'));
 
     }
 

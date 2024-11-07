@@ -106,7 +106,7 @@ Route::prefix('pdv')->group(function () {
     Route::get('/', [PdvController::class, 'index'])->name('pdv.index');
     Route::get('/venda-cartao', [PdvController::class, 'vendaCartao'])->name('pdv.create');
     Route::post('/baixar-pontos/{id}', [PdvController::class, 'baixarPontos'])->name('pdv.baixar-pontos');
-    Route::get('/historico/{id}', [PdvController::class, 'historico'])->name('pdv.historico');
+    Route::get('/historico/{pacote}/{cliente}', [PdvController::class, 'historico'])->name('pdv.historico');
     Route::post('/nova-venda', [PdvController::class, 'store'])->name('pdv.store');
     Route::post('/atualiza-venda/{id}', [PdvController::class, 'update'])->name('pdv.update');
     Route::get('/busca-venda', [PdvController::class, 'buscaCartaoVendido'])->name('pdv.busca');

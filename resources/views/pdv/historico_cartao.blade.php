@@ -20,7 +20,7 @@
                                 <div
                                     class="d-sm-flex text-center text-md-start justify-content-between gap-2 align-items-center">
                                     <h1 class="fs-4 fw-600 mb-4 text-green-2">
-                                        <i data-feather="credit-cartd"></i> Historico Pacote Foto-Pré
+                                        <i data-feather="credit-cartd"></i> Historico Pacote Foto-Pré - {{$cliente->nome}}
                                     </h1>
 
 
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="row">
                                     <p><b>Pacote:</b> {{ $cartao->descricao }} <b>Saldo:
-                                        </b>{{ $cartao->saldo }}</p>
+                                        </b>@if($cartao->saldo == null && $cartao->usado == null) {{$cartao->quantidade}} @else {{ $cartao->saldo }} @endif</p>
                                 </div>
 
                                 <div class="table-responsive mt-5">
