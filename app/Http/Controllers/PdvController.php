@@ -171,10 +171,16 @@ class PdvController extends Controller
         ->where('pacotes_clientes_id',$request->id)
 
         ->get();
+
+
         $total=0;
         $cartao=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
         ->select('pacotes_clientes.*','pacotes.descricao')
         ->find($request->id);
+
+
+
+
 
 
 

@@ -43,7 +43,19 @@ class HomeController extends Controller
             ->setSparkline()
             ->setHeight(315); // Altura do gráfico
 
+
+
+
         if (auth()->user()->profile == 'admin') {
+
+            $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+            ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+            ->where('vendas.status', 'Vendido')
+            ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+            ->groupBy('lojas.nfantasia')
+            ->get();
+
+
 
             // Consulta para obter o total de cartões vendidos por loja
             $cartoesVendidos = Venda::where('status', 'Vendido')
@@ -51,6 +63,8 @@ class HomeController extends Controller
                 ->groupBy('loja_id')
                 ->select('loja_id', DB::raw('COUNT(*) as total_cartoes'))
                 ->get();
+
+
 
 
 
@@ -97,9 +111,26 @@ class HomeController extends Controller
 
                 //dd($labels);
 
+                $vendas=Venda::join('lojas','lojas.id','vendas.loja_id')
+                ->join('pacotes','pacotes.id','vendas.pacote_id')
+                ->join('clientes','clientes.id','vendas.cliente_id')
+                ->select('lojas.nfantasia', 'pacotes.descricao','vendas.valor','clientes.nome')
+                ->where('vendas.status','Vendido')
+                ->where('vendas.loja_id',auth()->user()->loja_id)
+                ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                ->get();
+
+                $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+            ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+            ->where('vendas.status', 'Vendido')
+            ->where('vendas.loja_id',auth()->user()->loja_id)
+            ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+            ->groupBy('lojas.nfantasia')
+            ->get();
+
 
         }else{
-            return view('home',compact('dataInicio', 'dataFim'));
+            return view('home',compact('dataInicio', 'dataFim','vendas'));
 
         }
 
@@ -108,6 +139,6 @@ class HomeController extends Controller
 
 
 
-        return view('home', compact('dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'),['chart' => $chart->build()]);
+        return view('home', compact('vendas','dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'),['chart' => $chart->build()]);
     }
 }

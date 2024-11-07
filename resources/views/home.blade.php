@@ -93,6 +93,65 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-lg-8 col-xl-12">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+
+                        <div class="d-md-flex align-items-center justify-content-between gap-3">
+                            <h2 class="fs-24px fw-600 text-green-2 ">Vendas por loja</h2>
+                        </div>
+
+                        <div class="table-responsive mt-5">
+                            <table class="table text-green-2 resultBusca">
+                                <thead>
+                                    <tr class="fs-18px ">
+                                        <th scope="col"><span
+                                                class="text-green-2 d-inline-block pb-3">Loja</span></th>
+                                        <th scope="col"><span
+                                                class="text-green-2 d-inline-block pb-3">Valor Total</span></th>
+                                        <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade
+                                                </span>
+                                        </th>
+
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($vendas as $venda)
+                                        <tr class=" table-tr-cliente fw-500 fs-18px "
+                                            style="cursor:pointer">
+                                            <td class="text-green">
+                                                <span class="text-green">
+
+                                                    {{ $venda->nfantasia }}</span>
+                                            </td>
+
+
+
+                                            <td>
+                                                <span class="text-green">R$
+                                                    {{ number_format($venda->valor_total, 2, ',', '.') }}</span>
+                                            </td>
+
+                                            <td>
+                                                <span class="text-green">{{ $venda->quantidade_total }}</span>
+                                            </td>
+
+
+
+                                        </tr>
+
+
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{-- {{dd($graficoCartoesVendidos->script())}} --}}
             @endcanany
 
