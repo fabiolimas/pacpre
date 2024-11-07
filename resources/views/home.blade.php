@@ -108,8 +108,8 @@
                                         <th scope="col"><span
                                                 class="text-green-2 d-inline-block pb-3">Loja</span></th>
                                         <th scope="col"><span
-                                                class="text-green-2 d-inline-block pb-3">Valor Total</span></th>
-                                        <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade
+                                                class="text-green-2 d-inline-block pb-3">Total</span></th>
+                                        <th scope="col"><span class="text-green-2 d-inline-block pb-3">Vendas
                                                 </span>
                                         </th>
 
