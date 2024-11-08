@@ -86,7 +86,14 @@
                 let dataFinal = $('#dataFim');
                 let loja = $('#loja');
 
+
                 $('#search').click(function() {
+
+                    if(loja.val() == '' || loja.val() == null){
+                    alert('Selecione uma loja');
+                    return;
+                }
+
 
                     $.ajax({
                         url: "{{ route('relatorio.vendas_pdf') }}", // Arquivo PHP que processará a busca

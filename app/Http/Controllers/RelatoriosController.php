@@ -32,7 +32,9 @@ class RelatoriosController extends Controller
     $loja_id=$request->loja;
     $loja=Loja::Find($loja_id);
 
+
 $total=0;
+
 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
 ->join('clientes', 'clientes.id', 'vendas.cliente_id')
 ->join('pacotes', 'pacotes.id', 'vendas.pacote_id')
@@ -41,6 +43,10 @@ $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
 ->where('lojas.id', $loja_id)
 ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
 ->get();
+
+//debug
+
+//$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'));
 
 $pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
 
