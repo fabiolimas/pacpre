@@ -27,8 +27,8 @@ class RelatoriosController extends Controller
 
   public function relVendas(Request $request){
 
- $dataInicio = $request->input('data_inicio');
-    $dataFim = $request->input('data_fim');
+ $dataInicio = $request->dataInicial;
+    $dataFim = $request->dataFinal;
     $loja_id=$request->loja;
     $loja=Loja::Find($loja_id);
 
