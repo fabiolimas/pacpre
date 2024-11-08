@@ -46,6 +46,10 @@ $total=0;
 
     //return view('relatorios.vendas_pdf',compact('vendas','dataInicio','dataFim','loja','total'));
 
+    // $pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas','dataInicio','dataFim','loja','total'));
+
+    // return $pdf->stream();
+
     $pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas','dataInicio','dataFim','loja','total'))->setOptions(['enable_remote' => true]);
 
     return $pdf->stream();

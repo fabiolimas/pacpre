@@ -12,6 +12,8 @@ table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
   padding:5px;
+  text-transform: uppercase;
+  font-size: 14px
 }
 .card {
     padding: 5px;
@@ -27,15 +29,17 @@ table, th, td {
 }
 .cabecalho td {
     border: none;
+    font-size: 14px
 }
 .cabecalho img {
     margin: 0 auto;
     padding: 5px;
-    width: 134px;
+    width: 100px;
     display: block;
 }
 .table-responsive.mt-5 table {
     width: 100%;
+
 }
 .table-responsive.mt-5 {
     width: 100%;
@@ -61,7 +65,7 @@ table, th, td {
                             </a>
                         </td>
                         <td>
-                            <p>Relatório de Vendas</p>
+                            <p><b>Relatório de Vendas</b></p>
                             <p>Loja: <b>{{$loja->nfantasia}}</b></p>
                             <p>Periodo: <b>{{date('d-m-Y', strtotime($dataInicio))}} a {{date('d-m-Y', strtotime($dataFim))}}</b></p>
 
