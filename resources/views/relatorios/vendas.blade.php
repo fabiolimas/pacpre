@@ -17,18 +17,18 @@
                                     <div class="">
 
                                     </div>
-                                    <form method="post" action="{{route('relatorio.vendas_pdf')}}">
+                                    <form method="post" action="#">
                                         @csrf
                                         <div class="row mb-4">
                                             <div class="col-md-3">
                                                 <label for="data_inicio">Data Inicial:</label>
                                                 <input type="date" name="data_inicio" class="form-control"
-                                                    value="{{ $dataInicio }}" required>
+                                                    value="{{ $dataInicio }}" required id="dataInicio">
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="data_fim">Data Final:</label>
                                                 <input type="date" name="data_fim" class="form-control"
-                                                    value="{{ $dataFim }}" required>
+                                                    value="{{ $dataFim }}" required id="dataFim" >
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="loja">Loja:</label>
@@ -41,7 +41,7 @@
                                                </select>
                                             </div>
                                             <div class="col-md-2 d-flex align-items-end">
-                                                <button type="submit" class="btn btn-primary"> <i
+                                                <button type="button" class="btn btn-primary" id="search"> <i
                                                         data-feather="search"></i></button>
                                             </div>
                                         </div>
@@ -56,49 +56,7 @@
                         </div>
 
 
-                        {{-- <div class="table-responsive mt-5">
-                            <table class="table text-green-2 resultBusca">
-                                <thead>
-                                    <tr class="fs-18px ">
-                                        <th scope="col"><span class="text-green-2 d-inline-block pb-3">Loja</span></th>
-                                        <th scope="col"><span class="text-green-2 d-inline-block pb-3">Total</span></th>
-                                        <th scope="col"><span class="text-green-2 d-inline-block pb-3">Vendas
-                                            </span>
-                                        </th>
 
-
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($vendas as $venda)
-                                        <tr class=" table-tr-cliente fw-500 fs-18px " style="cursor:pointer">
-                                            <td class="text-green">
-                                                <span class="text-green">
-
-                                                    {{ $venda->nfantasia }}</span>
-                                            </td>
-
-
-
-                                            <td>
-                                                <span class="text-green">R$
-                                                    {{ number_format($venda->valor_total, 2, ',', '.') }}</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="text-green">{{ $venda->quantidade_total }}</span>
-                                            </td>
-
-
-
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
-                        </div> --}}
                     </div>
                 </div>
 
@@ -113,6 +71,53 @@
         </div>
 
 
+<script>
 
+
+
+            $('document').ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                let dataInicial = $('#dataInicio');
+                let dataFinal = $('#dataFim');
+                let loja = $('#loja');
+
+                $('#search').click(function() {
+
+                    $.ajax({
+                        url: "{{ route('relatorio.vendas_pdf') }}", // Arquivo PHP que processará a busca
+                        type: "post",
+                        data: {
+                           dataInicial: dataInicial.val(),
+                           dataFinal: dataFinal.val(),
+                           loja: loja.val()
+
+
+                        }, // Dados a serem enviados para o servidor
+                        success: function(response) {
+                            console.log(response); // Para verificar a resposta no console
+        if (response.url) {
+            window.open(response.url, '_blank');
+        } else {
+            console.error('URL não encontrada na resposta:', response);
+        }
+    },
+    error: function(xhr, status, error) {
+        console.error('Erro ao gerar o PDF:', error);
+    }
+
+
+                    });
+                });
+            });
+
+
+
+
+</script>
     @endsection
 

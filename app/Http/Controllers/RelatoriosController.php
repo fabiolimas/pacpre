@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Loja;
 use App\Models\Venda;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class RelatoriosController extends Controller
 {
@@ -32,27 +33,23 @@ class RelatoriosController extends Controller
     $loja=Loja::Find($loja_id);
 
 $total=0;
-    $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
-    ->join('clientes','clientes.id','vendas.cliente_id')
-    ->join('pacotes','pacotes.id','vendas.pacote_id')
-    ->select('lojas.nfantasia', 'pacotes.descricao','clientes.nome','vendas.created_at','vendas.valor')
-    ->where('vendas.status', 'Vendido')
-    ->where('lojas.id',$loja_id)
-    ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+$vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+->join('clientes', 'clientes.id', 'vendas.cliente_id')
+->join('pacotes', 'pacotes.id', 'vendas.pacote_id')
+->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'vendas.created_at', 'vendas.valor')
+->where('vendas.status', 'Vendido')
+->where('lojas.id', $loja_id)
+->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+->get();
 
-    ->get();
+$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
 
-    //dd($loja);
+// Salva o PDF temporariamente
+$filePath = 'pdfs/temp_relatorio_vendas.pdf';
+Storage::disk('public')->put($filePath, $pdf->output());
 
-    //return view('relatorios.vendas_pdf',compact('vendas','dataInicio','dataFim','loja','total'));
-
-    // $pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas','dataInicio','dataFim','loja','total'));
-
-    // return $pdf->stream();
-
-    $pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas','dataInicio','dataFim','loja','total'))->setOptions(['enable_remote' => true]);
-
-    return $pdf->stream();
+    // Retorna a URL do PDF
+    return response()->json(['url' => Storage::url($filePath)]);
 
 
   }
