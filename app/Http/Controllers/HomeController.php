@@ -111,14 +111,6 @@ class HomeController extends Controller
 
                 //dd($labels);
 
-                $vendas=Venda::join('lojas','lojas.id','vendas.loja_id')
-                ->join('pacotes','pacotes.id','vendas.pacote_id')
-                ->join('clientes','clientes.id','vendas.cliente_id')
-                ->select('lojas.nfantasia', 'pacotes.descricao','vendas.valor','clientes.nome')
-                ->where('vendas.status','Vendido')
-                ->where('vendas.loja_id',auth()->user()->loja_id)
-                ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
-                ->get();
 
                 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
             ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
