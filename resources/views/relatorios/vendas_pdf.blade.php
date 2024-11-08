@@ -27,9 +27,13 @@ table, th, td {
     border:none;
 
 }
+
 .cabecalho td {
     border: none;
     font-size: 14px
+}
+.cabecalho tr{
+    border: 1px solid black;
 }
 .cabecalho img {
     margin: 0 auto;
