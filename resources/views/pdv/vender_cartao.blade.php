@@ -146,7 +146,7 @@ const mask = IMask(element, maskOptions);
                     url: "{{ route('pdv.busca') }}", // Arquivo PHP que processará a busca
                     type: "get",
                     data: {
-                        pesquisa: $('#pesquisa').val(),
+                        pesquisacpf: $('#pesquisa').val(),
 
 
                     }, // Dados a serem enviados para o servidor

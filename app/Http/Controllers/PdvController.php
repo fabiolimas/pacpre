@@ -42,12 +42,14 @@ class PdvController extends Controller
     public function buscaCartaoVendido(Request $request){
 
         $cpf=str_replace( array( '-', '.' ), '',  $request->pesquisacpf);
-        $busca=$request->pesquisa;
+
         $buscacpf=$cpf;
+
+        $cliente=Cliente::find($buscacpf);
 
         $servicos=Servico::all();
 
-        if($busca=='' || $buscacpf == ''){
+        if($buscacpf == ''){
 
 
             $pacotes=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
