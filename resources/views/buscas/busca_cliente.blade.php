@@ -53,8 +53,11 @@ feather.replace();
 
 
                 <td>
-                    <a href="{{route('usuarios.edit', $usuario->id)}}"><span
-                    class="text-green"><i data-feather="edit"></i></span></a>
+                    <a href="{{ route('clientes.edit', $usuario->id) }}" title="Editar"><span
+                            class="text-green"><i data-feather="edit"></i></span>
+                        </a>|
+                            <a href="{{ route('clientes.pacotes', $usuario->id) }}" title="Pactoes Cliente"><span
+                                class="text-green"><i data-feather="credit-card"></i></span></a>
                 </td>
 
 
