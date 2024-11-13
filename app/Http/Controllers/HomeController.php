@@ -32,6 +32,8 @@ class HomeController extends Controller
 
         $dataInicio = $request->input('data_inicio', Carbon::now()->firstOfMonth()->format('Y-m-d'));
         $dataFim = $request->input('data_fim', now()->addDay()->format('Y-m-d')); // Padrão: Data atual
+        $totalValor=0;
+        $totalQuantidade=0;
 
         //dd($dataInicio);
 
@@ -157,10 +159,10 @@ class HomeController extends Controller
                     ->get();
             }
         } else {
-            return view('home', compact('dataInicio', 'dataFim', 'vendas'));
+            return view('home', compact('dataInicio', 'dataFim', 'vendas','totalValor','totalQuantidade'));
         }
 
 
-        return view('home', compact('vendas', 'dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
+        return view('home', compact('totalValor','totalQuantidade','vendas', 'dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
     }
 }

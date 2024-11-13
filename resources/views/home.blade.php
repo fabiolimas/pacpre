@@ -119,7 +119,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     @foreach ($vendas as $venda)
+
+                                    @php
+                                        $totalValor+=$venda->valor_total;
+                                        $totalQuantidade+=$venda->quantidade_total;
+                                    @endphp
                                         <tr class=" table-tr-cliente fw-500 fs-18px "
                                             style="cursor:pointer">
                                             <td class="text-green">
@@ -144,7 +150,16 @@
                                         </tr>
 
 
+
                                     @endforeach
+                                    @if($vendas->count() !=0)
+                                    <tr>
+                                        <th>Total</th>
+                                        <td><span class="text-green">R$ {{number_format($totalValor,2,',','.')}}</span></td>
+                                        <td><span class="text-green">{{$totalQuantidade}}</span></td>
+
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
 
