@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Loja;
 use App\Models\Venda;
 use Illuminate\Http\Request;
@@ -29,8 +30,10 @@ class HomeController extends Controller
     public function index(Request $request, CartoesVendidos $chart)
     {
 
-        $dataInicio = $request->input('data_inicio', '2024-01-01'); // Padrão: 1º de Janeiro de 2024
+        $dataInicio = $request->input('data_inicio', Carbon::now()->firstOfMonth()->format('Y-m-d'));
         $dataFim = $request->input('data_fim', now()->addDay()->format('Y-m-d')); // Padrão: Data atual
+
+        //dd($dataInicio);
 
         $cartoesGerados = (new LarapexChart)->barChart()
             ->setHorizontal(false) // Gráfico de barras vertical
@@ -48,35 +51,49 @@ class HomeController extends Controller
 
         if (auth()->user()->profile == 'admin') {
 
-            $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
-            ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
-            ->where('vendas.status', 'Vendido')
-            ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
-            ->groupBy('lojas.nfantasia')
-            ->get();
+
+            if ($dataInicio === $dataFim) {
+                $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+                    ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                    ->where('vendas.status', 'Vendido')
+                    ->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
+                    ->groupBy('lojas.nfantasia')
+                    ->get();
 
 
+                // Consulta para obter o total de cartões vendidos por loja
+                $cartoesVendidos = Venda::where('status', 'Vendido')
+                ->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
+                    ->groupBy('loja_id')
+                    ->select('loja_id', DB::raw('COUNT(*) as total_cartoes'))
+                    ->get();
 
-            // Consulta para obter o total de cartões vendidos por loja
-            $cartoesVendidos = Venda::where('status', 'Vendido')
-                ->whereBetween('created_at', [$dataInicio, $dataFim])
-                ->groupBy('loja_id')
-                ->select('loja_id', DB::raw('COUNT(*) as total_cartoes'))
-                ->get();
+            } else {
 
+                $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+                    ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                    ->where('vendas.status', 'Vendido')
+                    ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                    ->groupBy('lojas.nfantasia')
+                    ->get();
 
+                // Consulta para obter o total de cartões vendidos por loja
+                $cartoesVendidos = Venda::where('status', 'Vendido')
+                    ->whereBetween('created_at', [$dataInicio, $dataFim])
+                    ->groupBy('loja_id')
+                    ->select('loja_id', DB::raw('COUNT(*) as total_cartoes'))
+                    ->get();
 
-
-
-            // Obtenha os rótulos (nomes das lojas) e os dados (total de cartões vendidos)
-            $labels = [];
-            $dataset = [];
-
-            foreach ($cartoesVendidos as $venda) {
-                $loja = Loja::find($venda->loja_id); // Busque o nome da loja pelo ID
-                $labels[] = $loja->nfantasia; // Adicione o nome da loja nos rótulos
-                $dataset[] = $venda->total_cartoes; // Adicione o total de cartões vendidos ao dataset
             }
+ // Obtenha os rótulos (nomes das lojas) e os dados (total de cartões vendidos)
+ $labels = [];
+ $dataset = [];
+
+ foreach ($cartoesVendidos as $venda) {
+     $loja = Loja::find($venda->loja_id); // Busque o nome da loja pelo ID
+     $labels[] = $loja->nfantasia; // Adicione o nome da loja nos rótulos
+     $dataset[] = $venda->total_cartoes; // Adicione o total de cartões vendidos ao dataset
+ }
 
             // Criar o gráfico do tipo PieChart
             $graficoCartoesVendidos = (new LarapexChart)->pieChart()
@@ -86,16 +103,27 @@ class HomeController extends Controller
                 ->setColors(['#0E6664', '#FF4560', '#775DD0', '#00E396', '#00b396', '#ffc107']) // Definir cores diferentes para as fatias
                 ->setHeight(315); // Altura do gráfico
 
-                //dd($graficoCartoesVendidos);
+            //dd($graficoCartoesVendidos);
 
 
-        } elseif(auth()->user()->profile == 'loja') {
+        } elseif (auth()->user()->profile == 'loja') {
 
-            $cartoesVendidos = Venda::where('loja_id', auth()->user()->loja_id)
+
+            if ($dataInicio === $dataFim) {
+                $cartoesVendidos = Venda::where('loja_id', auth()->user()->loja_id)
+                ->where('status', 'Vendido')
+                ->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
+                ->select(DB::raw('COUNT(*) as total_cartoes')) // Contar o total de cartões vendidos
+                ->first();
+
+            }else{
+                $cartoesVendidos = Venda::where('loja_id', auth()->user()->loja_id)
                 ->where('status', 'Vendido')
                 ->whereBetween('created_at', [$dataInicio, $dataFim])
                 ->select(DB::raw('COUNT(*) as total_cartoes')) // Contar o total de cartões vendidos
                 ->first();
+
+            }
 
             $loja = Loja::find(auth()->user()->loja_id);
 
@@ -109,28 +137,30 @@ class HomeController extends Controller
                 ->setColors(['#0E6664']) // Cor das fatias do gráfico
                 ->setHeight(315); // Altura do gráfico
 
-                //dd($labels);
+            //dd($labels);
 
+
+            if ($dataInicio == $dataFim) {
+                $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+                    ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                    ->where('vendas.status', 'Vendido')
+                    ->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
+                    ->groupBy('lojas.nfantasia')
+                    ->get();
+            } else {
 
                 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
-            ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
-            ->where('vendas.status', 'Vendido')
-            ->where('vendas.loja_id',auth()->user()->loja_id)
-            ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
-            ->groupBy('lojas.nfantasia')
-            ->get();
-
-
-        }else{
-            return view('home',compact('dataInicio', 'dataFim','vendas'));
-
+                    ->selectRaw('lojas.nfantasia, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                    ->where('vendas.status', 'Vendido')
+                    ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                    ->groupBy('lojas.nfantasia')
+                    ->get();
+            }
+        } else {
+            return view('home', compact('dataInicio', 'dataFim', 'vendas'));
         }
 
 
-
-
-
-
-        return view('home', compact('vendas','dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'),['chart' => $chart->build()]);
+        return view('home', compact('vendas', 'dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
     }
 }
