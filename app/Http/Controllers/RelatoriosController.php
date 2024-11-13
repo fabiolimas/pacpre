@@ -61,9 +61,9 @@ if($dataInicio === $dataFim){
 
 //debug
 
-$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'));
+//$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'));
 
-//$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
+$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
 
 // Salva o PDF temporariamente
 $filePath = 'pdfs/temp_relatorio_vendas.pdf';
