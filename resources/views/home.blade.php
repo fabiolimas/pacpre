@@ -153,7 +153,8 @@
 
                                     @endforeach
                                     @if($vendas->count() !=0)
-                                    <tr>
+                                    <tr class=" table-tr-cliente fw-500 fs-18px "
+                                    style="cursor:pointer">
                                         <th>Total</th>
                                         <td><span class="text-green">R$ {{number_format($totalValor,2,',','.')}}</span></td>
                                         <td><span class="text-green">{{$totalQuantidade}}</span></td>
