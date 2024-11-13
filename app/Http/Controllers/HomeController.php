@@ -56,7 +56,7 @@ class HomeController extends Controller
 
             if ($dataInicio === $dataFim) {
                 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
-                ->selectRaw('lojas.nfantasia,lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                ->selectRaw('lojas.nfantasia, lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
                     ->where('vendas.status', 'Vendido')
                     ->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
                     ->groupBy('lojas.nfantasia','lojas.id')
@@ -73,10 +73,10 @@ class HomeController extends Controller
             } else {
 
                 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
-                ->selectRaw('lojas.nfantasia,lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                ->selectRaw('lojas.nfantasia, lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
                     ->where('vendas.status', 'Vendido')
                     ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
-                    ->groupBy('lojas.nfantasia'.'lojas.id')
+                    ->groupBy('lojas.nfantasia','lojas.id')
                     ->get();
 
                 // Consulta para obter o total de cartões vendidos por loja
@@ -144,7 +144,7 @@ class HomeController extends Controller
 
             if ($dataInicio == $dataFim) {
                 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
-                ->selectRaw('lojas.nfantasia,lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                ->selectRaw('lojas.nfantasia, lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
                     ->where('vendas.status', 'Vendido')
                     ->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
                     ->groupBy('lojas.nfantasia','lojas.id')
@@ -152,7 +152,7 @@ class HomeController extends Controller
             } else {
 
                 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
-                ->selectRaw('lojas.nfantasia,lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
+                ->selectRaw('lojas.nfantasia, lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
                     ->where('vendas.status', 'Vendido')
                     ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
                     ->groupBy('lojas.nfantasia','lojas.id')
