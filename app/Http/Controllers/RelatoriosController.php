@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Loja;
 use App\Models\Venda;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class RelatoriosController extends Controller
 {
   public function vendas(Request $request){
 
-    $dataInicio = $request->input('data_inicio', '2024-01-01'); // Padrão: 1º de Janeiro de 2024
+    $dataInicio = $request->input('data_inicio', Carbon::now()->firstOfMonth()->format('Y-m-d'));
     $dataFim = $request->input('data_fim', now()->addDay()->format('Y-m-d')); // Padrão: Data atual
 
     $lojas=Loja::all();
@@ -27,7 +28,7 @@ class RelatoriosController extends Controller
 
   public function relVendas(Request $request){
 
- $dataInicio = $request->dataInicial;
+    $dataInicio = $request->dataInicial;
     $dataFim = $request->dataFinal;
     $loja_id=$request->loja;
     $loja=Loja::Find($loja_id);
@@ -35,20 +36,34 @@ class RelatoriosController extends Controller
 
 $total=0;
 
-$vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+if($dataInicio === $dataFim){
+    $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
 ->join('clientes', 'clientes.id', 'vendas.cliente_id')
 ->join('pacotes', 'pacotes.id', 'vendas.pacote_id')
 ->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'vendas.created_at', 'vendas.valor')
 ->where('vendas.status', 'Vendido')
 ->where('lojas.id', $loja_id)
-->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
 ->get();
+}else{
+    $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
+    ->join('clientes', 'clientes.id', 'vendas.cliente_id')
+    ->join('pacotes', 'pacotes.id', 'vendas.pacote_id')
+    ->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'vendas.created_at', 'vendas.valor')
+    ->where('vendas.status', 'Vendido')
+    ->where('lojas.id', $loja_id)
+    ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+    ->get();
+
+}
+
+
 
 //debug
 
-//$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'));
+$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'));
 
-$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
+//$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
 
 // Salva o PDF temporariamente
 $filePath = 'pdfs/temp_relatorio_vendas.pdf';
