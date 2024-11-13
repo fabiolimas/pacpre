@@ -131,7 +131,7 @@
                                     @endphp
 
                                         <tr class=" table-tr-cliente fw-500 fs-18px"
-                                            style="cursor:pointer" id="vloja-{{$venda->id}}">
+                                            style="cursor:pointer" id="vloja-{{$loop->index+1}}">
                                             <td class="text-green">
                                                 <span class="text-green">
 
@@ -148,9 +148,9 @@
                                             <td>
                                                 <span class="text-green">{{ $venda->quantidade_total }}</span>
                                             </td>
-                                            <input type="hidden" id="loja-{{$venda->id}}" value="{{$venda->loja_id}}">
-                                            <input type="hidden" id="dataini-{{$venda->id}}" value="{{$dataInicio}}">
-                                            <input type="hidden" id="datafim-{{$venda->id}}" value="{{$dataFim}}">
+                                            <input type="hidden" id="loja-{{$loop->index+1}}" value="{{$venda->loja_id}}">
+                                            <input type="hidden" id="dataini-{{$loop->index+1}}" value="{{$dataInicio}}">
+                                            <input type="hidden" id="datafim-{{$loop->index+1}}" value="{{$dataFim}}">
 
 
 
@@ -169,15 +169,15 @@
                                                     }
                                                 });
 
-                                                let dataInicial = $('#dataini-{{$venda->id}}');
-                                                let dataFinal = $('#datafim-{{$venda->id}}');
-                                                let loja = $('#loja-{{$venda->id}}');
+                                                let dataInicial = $('#dataini-{{$loop->index+1}}');
+                                                let dataFinal = $('#datafim-{{$loop->index+1}}');
+                                                let loja = $('#loja-{{$loop->index+1}}');
 
                                                 console.log(dataInicial.val());
 
 
 
-                                                $('#vloja-{{$venda->id}}').click(function() {
+                                                $('#vloja-{{$loop->index+1}}').click(function() {
 
 
 
