@@ -99,6 +99,7 @@
 
                         <div class="d-md-flex align-items-center justify-content-between gap-3">
                             <h2 class="fs-24px fw-600 text-green-2 ">Vendas por loja</h2>
+
                         </div>
 
                         <div class="table-responsive mt-5">
@@ -118,7 +119,9 @@
 
                                     </tr>
                                 </thead>
+
                                 <tbody>
+
 
                                     @foreach ($vendas as $venda)
 
@@ -126,8 +129,9 @@
                                         $totalValor+=$venda->valor_total;
                                         $totalQuantidade+=$venda->quantidade_total;
                                     @endphp
-                                        <tr class=" table-tr-cliente fw-500 fs-18px "
-                                            style="cursor:pointer">
+
+                                        <tr class=" table-tr-cliente fw-500 fs-18px"
+                                            style="cursor:pointer" id="vloja-{{$venda->id}}">
                                             <td class="text-green">
                                                 <span class="text-green">
 
@@ -144,10 +148,70 @@
                                             <td>
                                                 <span class="text-green">{{ $venda->quantidade_total }}</span>
                                             </td>
+                                            <input type="hidden" id="loja-{{$venda->id}}" value="{{$venda->loja_id}}">
+                                            <input type="hidden" id="dataini-{{$venda->id}}" value="{{$dataInicio}}">
+                                            <input type="hidden" id="datafim-{{$venda->id}}" value="{{$dataFim}}">
+
+
 
 
 
                                         </tr>
+
+                                        <script>
+
+
+
+                                            $('document').ready(function() {
+                                                $.ajaxSetup({
+                                                    headers: {
+                                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                    }
+                                                });
+
+                                                let dataInicial = $('#dataini-{{$venda->id}}');
+                                                let dataFinal = $('#datafim-{{$venda->id}}');
+                                                let loja = $('#loja-{{$venda->id}}');
+
+                                                console.log(dataInicial.val());
+
+
+
+                                                $('#vloja-{{$venda->id}}').click(function() {
+
+
+
+                                                    $.ajax({
+                                                        url: "{{ route('relatorio.vendas_pdf') }}", // Arquivo PHP que processará a busca
+                                                        type: "post",
+                                                        data: {
+                                                           dataInicial: dataInicial.val(),
+                                                           dataFinal: dataFinal.val(),
+                                                           loja: loja.val()
+
+
+                                                        }, // Dados a serem enviados para o servidor
+                                                        success: function(response) {
+                                                            console.log(response); // Para verificar a resposta no console
+                                        if (response.url) {
+                                            window.open(response.url, '_blank');
+                                        } else {
+                                            console.error('URL não encontrada na resposta:', response);
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error('Erro ao gerar o PDF:', error);
+                                    }
+
+
+                                                    });
+                                                });
+                                            });
+
+
+
+
+                                </script>
 
 
 
@@ -156,8 +220,8 @@
                                     <tr class=" table-tr-cliente fw-500 fs-18px "
                                     style="cursor:pointer">
                                         <th>Total</th>
-                                        <td><span class="text-green">R$ {{number_format($totalValor,2,',','.')}}</span></td>
-                                        <td><span class="text-green">{{$totalQuantidade}}</span></td>
+                                        <td><span class="text-black">R$ {{number_format($totalValor,2,',','.')}}</span></td>
+                                        <td><span class="text-black">{{$totalQuantidade}}</span></td>
 
                                     </tr>
                                     @endif
