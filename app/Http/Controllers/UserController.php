@@ -92,7 +92,7 @@ public function update(Request $request){
 
 
 
-    if($usuarios->count() >=1){
+    if($usuarios->count() != 0){
         return view('buscas.busca_usuario',compact('usuarios'));
     }else{
         return response()->json(['status'=>'Usuário não encontrado']);

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use DatePeriod;
+use DateInterval;
 use Carbon\Carbon;
 use App\Models\Loja;
 use App\Models\Venda;
@@ -52,6 +55,56 @@ class HomeController extends Controller
 
 
         if (auth()->user()->profile == 'admin') {
+
+            $cartoesVendidosLojas = Venda::join('lojas','lojas.id','vendas.loja_id')
+            ->where('status', 'Vendido')
+                ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                ->groupBy('loja_id', DB::raw('DATE(vendas.created_at)'))
+                ->select('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
+                ->get();
+
+            // Organizar dados para o gráfico
+            $dadosOrganizados = [];
+            foreach ($cartoesVendidosLojas as $venda) {
+                $dadosOrganizados[$venda->nfantasia][$venda->dia] = $venda->total_cartoes;
+            }
+
+
+            // Obter lista de dias no período para garantir consistência no eixo X
+            $periodo = new DatePeriod(
+                new DateTime($dataInicio),
+                new DateInterval('P1D'),
+                (new DateTime($dataFim))->modify('+1 day')
+            );
+
+            $dias = [];
+            foreach ($periodo as $data) {
+                $dias[] = $data->format('Y-m-d');
+            }
+
+            // Preparar dados para o gráfico
+            $series = [];
+
+            foreach ($dadosOrganizados as $lojaId => $vendas) {
+
+                $serie = [
+                    'name' => "Loja $lojaId",
+                    'data' => []
+                ];
+
+                foreach ($dias as $dia) {
+                    $serie['data'][] = $vendas[$dia] ?? 0; // Se não houver vendas nesse dia, adicionar 0
+                }
+
+
+                $series[] = $serie;
+
+            }
+
+            $chartVendaPorLoja = (new LarapexChart)->setType('bar') // ou 'bar' para um gráfico de barras
+                // ->setTitle('Cartões Vendidos por Dia e Loja')
+                ->setXAxis($dias)
+                ->setDataset($series);
 
 
             if ($dataInicio === $dataFim) {
@@ -108,6 +161,57 @@ class HomeController extends Controller
 
         } elseif (auth()->user()->profile == 'loja') {
 
+            $cartoesVendidosLojas = Venda::join('lojas','lojas.id','vendas.loja_id')
+            ->where('status', 'Vendido')
+            ->where('vendas.loja_id', auth()->user()->loja_id)
+                ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                ->groupBy('loja_id', DB::raw('DATE(vendas.created_at)'))
+                ->select('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
+                ->get();
+
+            // Organizar dados para o gráfico
+            $dadosOrganizados = [];
+            foreach ($cartoesVendidosLojas as $venda) {
+                $dadosOrganizados[$venda->nfantasia][$venda->dia] = $venda->total_cartoes;
+            }
+
+
+            // Obter lista de dias no período para garantir consistência no eixo X
+            $periodo = new DatePeriod(
+                new DateTime($dataInicio),
+                new DateInterval('P1D'),
+                (new DateTime($dataFim))->modify('+1 day')
+            );
+
+            $dias = [];
+            foreach ($periodo as $data) {
+                $dias[] = $data->format('Y-m-d');
+            }
+
+            // Preparar dados para o gráfico
+            $series = [];
+
+            foreach ($dadosOrganizados as $lojaId => $vendas) {
+
+                $serie = [
+                    'name' => "Loja $lojaId",
+                    'data' => []
+                ];
+
+                foreach ($dias as $dia) {
+                    $serie['data'][] = $vendas[$dia] ?? 0; // Se não houver vendas nesse dia, adicionar 0
+                }
+
+
+                $series[] = $serie;
+
+            }
+
+            $chartVendaPorLoja = (new LarapexChart)->setType('bar') // ou 'bar' para um gráfico de barras
+                // ->setTitle('Cartões Vendidos por Dia e Loja')
+                ->setXAxis($dias)
+                ->setDataset($series);
+
 
             if ($dataInicio === $dataFim) {
                 $cartoesVendidos = Venda::where('loja_id', auth()->user()->loja_id)
@@ -161,6 +265,6 @@ class HomeController extends Controller
         }
 
 
-        return view('home', compact('totalValor', 'totalQuantidade', 'vendas', 'dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
+        return view('home', compact('chartVendaPorLoja','totalValor', 'totalQuantidade', 'vendas', 'dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
     }
 }

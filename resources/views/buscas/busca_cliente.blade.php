@@ -47,7 +47,7 @@ feather.replace();
                     <span class="text-green">{{ $usuario->cpf }}</span>
                 </td>
                 <td>
-                    <span class="text-green">{{ $usuario->email }}</span>
+                    <span class="text-green cliemail">{{ $usuario->email }}</span>
                 </td>
 
 

@@ -86,7 +86,7 @@
                                                         <span class="text-green">{{ $cliente->cpf }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-green">{{ $cliente->email }}</span>
+                                                        <span class="text-green cliemail">{{ $cliente->email }}</span>
                                                     </td>
 
 

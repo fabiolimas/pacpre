@@ -39,6 +39,9 @@ span.produtoSemPreco.text-danger.bg-warning {
     width: 328px;
     margin-bottom: 46px;
 }
+.cliemail{
+    text-transform: lowercase;
+}
 
 table{
     text-transform: uppercase;

@@ -236,6 +236,41 @@
                         </div>
 
                     </div>
+
+
+                </div>
+
+            </div>
+            <div class="col-12 col-lg-8 col-xl-12">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+
+                        <div class="d-md-flex align-items-center justify-content-between gap-3">
+                            <h2 class="fs-24px fw-600 text-green-2 ">Vendas por dia</h2>
+                            <div class="d-flex gap-2">
+                                <div class="">
+
+                                </div>
+
+                                <div class="">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="graficoCartoesVendidos">
+                        {!! $chartVendaPorLoja->container() !!}
+                    </div>
+
+
+                        <div class="line-chart mt-4 pt-3 position-relative pb-3">
+                            <div class="line-chart-vertical"></div>
+                            <div class="position-absolute d-flex w-100 justify-content-between">
+                                <div class="line-chart-dot line-chart-dot-1"></div>
+                                <div class="line-chart-dot line-chart-dot-2"></div>
+                                <div class="line-chart-dot line-chart-dot-3"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {{-- {{dd($graficoCartoesVendidos->script())}} --}}
@@ -253,6 +288,7 @@
     <script src="{{ $graficoCartoesVendidos->cdn() }}"></script>
     {{-- {{ $cartoesGerados->script() }} --}}
     {{ $graficoCartoesVendidos->script() }}
+    {{ $chartVendaPorLoja->script() }}
 
 
 @endcanany
