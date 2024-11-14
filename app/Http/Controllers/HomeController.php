@@ -59,7 +59,7 @@ class HomeController extends Controller
             $cartoesVendidosLojas = Venda::join('lojas','lojas.id','vendas.loja_id')
             ->where('status', 'Vendido')
                 ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
-                ->groupBy('loja_id', DB::raw('DATE(vendas.created_at)'))
+                ->groupBy('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at)'))
                 ->select('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
                 ->get();
 
