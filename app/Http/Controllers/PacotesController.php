@@ -30,10 +30,14 @@ class PacotesController extends Controller
         ->select('pacotes_clientes.*','pacotes.descricao','pacotes.quantidade','pacotes.valor')
         ->where('cliente_id', $cliente->id)->paginate(30);
 
+        return view('pacotes.index',compact('pacotes','clientes','cliente'));
+    }else{
 
+        return view('pacotes.index',compact('pacotes','clientes'));
     }
 
-    return view('pacotes.index',compact('pacotes','clientes','cliente'));
+
+
    }
 
    public function create(){
