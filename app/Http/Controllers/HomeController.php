@@ -88,7 +88,7 @@ class HomeController extends Controller
             foreach ($dadosOrganizados as $lojaId => $vendas) {
 
                 $serie = [
-                    'name' => "Loja $lojaId",
+                    'name' => "$lojaId",
                     'data' => []
                 ];
 
@@ -194,7 +194,7 @@ class HomeController extends Controller
             foreach ($dadosOrganizados as $lojaId => $vendas) {
 
                 $serie = [
-                    'name' => "Loja $lojaId",
+                    'name' => "$lojaId",
                     'data' => []
                 ];
 
