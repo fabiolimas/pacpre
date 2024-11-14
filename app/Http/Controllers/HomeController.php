@@ -40,25 +40,11 @@ class HomeController extends Controller
 
         //dd($dataInicio);
 
-        $cartoesGerados = (new LarapexChart)->barChart()
-            ->setHorizontal(false) // Gráfico de barras vertical
-            ->setXAxis(['Jacobina', 'Juazeiro', 'Petrolina']) // Definir os clientes como rótulos do eixo X
-            ->setDataset([[
-                'name'  =>  'Faturamento',
-                'data'  =>  ['200', '30', '150'] // Definir o faturamento como dados do gráfico
-            ]])
-            ->setColors(['#0E6664']) // Cor das barras
-            ->setSparkline()
-            ->setHeight(315); // Altura do gráfico
-
-
-
-
         if (auth()->user()->profile == 'admin') {
 
             $cartoesVendidosLojas = Venda::join('lojas','lojas.id','vendas.loja_id')
             ->where('status', 'Vendido')
-                // ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                //->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
                 ->groupBy('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at)'))
                 ->select('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
                 ->get();
@@ -127,13 +113,13 @@ class HomeController extends Controller
                 $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
                     ->selectRaw('lojas.nfantasia, lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
                     ->where('vendas.status', 'Vendido')
-                    ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                    ->whereBetween('vendas.created_at', [$dataInicio, (new DateTime($dataFim))->modify('+1 day')])
                     ->groupBy('lojas.nfantasia', 'lojas.id')
                     ->get();
 
                 // Consulta para obter o total de cartões vendidos por loja
                 $cartoesVendidos = Venda::where('status', 'Vendido')
-                    ->whereBetween('created_at', [$dataInicio, $dataFim])
+                    ->whereBetween('created_at', [$dataInicio, (new DateTime($dataFim))->modify('+1 day')])
                     ->groupBy('loja_id')
                     ->select('loja_id', DB::raw('COUNT(*) as total_cartoes'))
                     ->get();
@@ -222,7 +208,7 @@ class HomeController extends Controller
             } else {
                 $cartoesVendidos = Venda::where('loja_id', auth()->user()->loja_id)
                     ->where('status', 'Vendido')
-                    ->whereBetween('created_at', [$dataInicio, $dataFim])
+                    ->whereBetween('created_at', [$dataInicio, (new DateTime($dataFim))->modify('+1 day')])
                     ->select(DB::raw('COUNT(*) as total_cartoes')) // Contar o total de cartões vendidos
                     ->first();
             }
@@ -256,7 +242,7 @@ class HomeController extends Controller
                     ->selectRaw('lojas.nfantasia, lojas.id as loja_id, COUNT(vendas.id) as quantidade_total, SUM(vendas.valor) as valor_total')
                     ->where('vendas.status', 'Vendido')
                     ->where('loja_id', auth()->user()->loja_id)
-                    ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
+                    ->whereBetween('vendas.created_at', [$dataInicio, (new DateTime($dataFim))->modify('+1 day')])
                     ->groupBy('lojas.nfantasia', 'lojas.id')
                     ->get();
             }
@@ -265,6 +251,6 @@ class HomeController extends Controller
         }
 
 
-        return view('home', compact('chartVendaPorLoja','totalValor', 'totalQuantidade', 'vendas', 'dataInicio', 'dataFim', 'cartoesGerados', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
+        return view('home', compact('chartVendaPorLoja','totalValor', 'totalQuantidade', 'vendas', 'dataInicio', 'dataFim', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
     }
 }
