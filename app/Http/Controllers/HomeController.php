@@ -42,11 +42,11 @@ class HomeController extends Controller
 
         if (auth()->user()->profile == 'admin') {
 
-            $cartoesVendidosLojas = Venda::join('lojas','lojas.id','vendas.loja_id')
-            ->where('status', 'Vendido')
+            $cartoesVendidosLojas = Venda::join('lojas', 'lojas.id', 'vendas.loja_id')
+                ->where('status', 'Vendido')
                 //->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
-                ->groupBy('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at)'))
-                ->select('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
+                ->groupBy('loja_id', 'lojas.nfantasia', DB::raw('DATE(vendas.created_at)'))
+                ->select('loja_id', 'lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
                 ->get();
 
             // Organizar dados para o gráfico
@@ -84,7 +84,6 @@ class HomeController extends Controller
 
 
                 $series[] = $serie;
-
             }
 
             $chartVendaPorLoja = (new LarapexChart)->setType('bar') // ou 'bar' para um gráfico de barras
@@ -147,12 +146,12 @@ class HomeController extends Controller
 
         } elseif (auth()->user()->profile == 'loja') {
 
-            $cartoesVendidosLojas = Venda::join('lojas','lojas.id','vendas.loja_id')
-            ->where('status', 'Vendido')
-            ->where('vendas.loja_id', auth()->user()->loja_id)
+            $cartoesVendidosLojas = Venda::join('lojas', 'lojas.id', 'vendas.loja_id')
+                ->where('status', 'Vendido')
+                ->where('vendas.loja_id', auth()->user()->loja_id)
                 // ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
-                ->groupBy('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at)'))
-                ->select('loja_id','lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
+                ->groupBy('loja_id', 'lojas.nfantasia', DB::raw('DATE(vendas.created_at)'))
+                ->select('loja_id', 'lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
                 ->get();
 
             // Organizar dados para o gráfico
@@ -190,7 +189,6 @@ class HomeController extends Controller
 
 
                 $series[] = $serie;
-
             }
 
             $chartVendaPorLoja = (new LarapexChart)->setType('bar') // ou 'bar' para um gráfico de barras
@@ -246,11 +244,12 @@ class HomeController extends Controller
                     ->groupBy('lojas.nfantasia', 'lojas.id')
                     ->get();
             }
-        } else {
-            return view('home', compact('dataInicio', 'dataFim', 'vendas', 'totalValor', 'totalQuantidade'));
+        }
+        else {
+            return view('home', compact('dataInicio', 'dataFim', 'totalValor', 'totalQuantidade'));
         }
 
 
-        return view('home', compact('chartVendaPorLoja','totalValor', 'totalQuantidade', 'vendas', 'dataInicio', 'dataFim', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
+        return view('home', compact('chartVendaPorLoja', 'totalValor', 'totalQuantidade', 'vendas', 'dataInicio', 'dataFim', 'cartoesVendidos', 'graficoCartoesVendidos'), ['chart' => $chart->build()]);
     }
 }

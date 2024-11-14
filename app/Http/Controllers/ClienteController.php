@@ -129,16 +129,17 @@ class ClienteController extends Controller
 
 
         $cliente=Cliente::find($request->id);
-        $usuario=User::where('email',$cliente->email)->first();
+        $usuario=User::where('id',$cliente->user_id)->first();
 
         if($request->password == null){
-            $usuario->update(['name'=>strtoupper($request->name)]);
+            $usuario->update(['name'=>$request->name,'email'=>$request->email]);
             $cliente->update([
                 'nome'=>strtoupper($request->name),
                 'endereco'=>$request->endereco,
                 'cpf'=>$cpf,
                 'cidade'=>$request->cidade,
                 'estado'=>$request->estado,
+                'email'=>$request->email
 
             ]);
 

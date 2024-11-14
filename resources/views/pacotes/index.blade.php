@@ -489,7 +489,7 @@
 
                                                     </td>
                                                     <td>
-                                                        <a href="{{route('pdv.historico',$cartao->id)}}" title="Histórico" class="m-3"><i
+                                                        <a href="{{route('pdv.historico',['pacote'=>$cartao->id, 'cliente'=>$cliente->id])}}" title="Histórico" class="m-3"><i
                                                                 class="fa-solid fa-clock-rotate-left"></i></a>
                                                     </td>
 
