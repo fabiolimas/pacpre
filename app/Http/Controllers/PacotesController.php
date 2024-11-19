@@ -182,6 +182,7 @@ public function venderPacote(Request $request)
 
     $pacoteCliente= new PacotesCliente();
 
+
     $pacoteCliente->cliente_id=$request->cliente;
     $pacoteCliente->pacote_id=$request->id;
     $pacoteCliente->quantidade=$request->quantidade;

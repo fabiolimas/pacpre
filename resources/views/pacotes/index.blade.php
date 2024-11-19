@@ -290,8 +290,8 @@
                                                                                     <input type="text"
                                                                                         class="form-control form-control-custom @error('quantidade') is-invallid @enderror fs-18px fw-500"
                                                                                         name="quantidade" id="quantidade"
-                                                                                        value="{{ $pacote->quantidade }}"
-                                                                                        placeholder="0" readonly />
+                                                                                        value="{{$pacote->quantidade}}"
+                                                                                        placeholder="0"  />
 
 
                                                                                 </div>
@@ -352,83 +352,51 @@
 
 
                                                 {{-- Cliente --}}
-                                                <div class="modal modal-custom fade"
-                                                    id="select-cliente-{{ $pacote->id }}" tabindex="-1"
-                                                    data-bs-keyboard="false" role="dialog"
-                                                    aria-labelledby="modalTitleId" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md border-0"
-                                                        role="document">
-                                                        <div class="modal-content bg-transparent ">
-                                                            <div class="modal-body p-lg-5  border-0">
-
-                                                                <div class="p-4 shadow rounded-3  bg-white border">
-
-
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"> Cliente</h5>
-
-                                                                    </div>
-
-                                                                    <form
-                                                                        action="{{ route('pacotes.vender', $pacote->id) }}"
-                                                                        method="post" id="form-remover">
-
-                                                                        @csrf
-
-
-                                                                        <input type="hidden" name="id"
-                                                                            value="{{ $pacote->id }}">
-
-                                                                            <input type="hidden" name="quantidade" value="{{$pacote->quantidade}}">
-                                                                            <input type="hidden" name="valor" value="{{$pacote->valor}}">
-
-                                                                        <div class="mb-2 pb-3">
-                                                                            <div class="mb-0 position-relative">
-                                                                                <label for="descricao"
-                                                                                    class="form-label text-green fw-500 fs-18px w-100">
-                                                                                    <div
-                                                                                        class="d-flex justify-content-between gap-2 w-100 align-items-center mt-3">
-                                                                                        Selecione o Cliente
-                                                                                    </div>
-
-                                                                                </label>
-                                                                                <div class="">
-                                                                                    <select class="form-select" name="cliente" id="selectCliente" required>
-                                                                                        <option value="">Selecione</option>
-                                                                                        @foreach($clientes as $cliente)
-                                                                                            <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
-                                                                                        @endforeach
-                                                                                    </select>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-
-                                                                            <div class="col-md-6">
-                                                                                <button type="button"
-                                                                                    class=" btn btn-secondary "
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Close">
-                                                                                    <span
-                                                                                        aria-hidden="true">Cancelar</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-
-                                                                                <button type="submit"
-                                                                                    id="modal-link-ver-mais"
-                                                                                    class="btn btn-primary w-100 py-2 fs-16px">Vender</button>
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <div class="modal modal-custom"
+    id="select-cliente-{{ $pacote->id }}" tabindex="-1"
+    data-bs-keyboard="false" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md border-0" role="document">
+        <div class="modal-content bg-transparent">
+            <div class="modal-body p-lg-5 border-0">
+                <div class="p-4 shadow rounded-3 bg-white border">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cliente</h5>
+                    </div>
+                    <form action="{{ route('pacotes.vender', $pacote->id) }}" method="post" id="form-remover">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $pacote->id }}">
+                        <input type="hidden" name="quantidade" value="{{ $pacote->quantidade }}">
+                        <input type="hidden" name="valor" value="{{ $pacote->valor }}">
+                        <div class="mb-2 pb-3">
+                            <label for="selectCliente" class="form-label text-green fw-500 fs-18px w-100">
+                                <div class="d-flex justify-content-between gap-2 w-100 align-items-center mt-3">
+                                    Selecione o Cliente
+                                </div>
+                            </label>
+                            <select class="form-select select2" name="cliente" id="selectCliente-{{ $pacote->id }}" required>
+                                <option value="">Selecione</option>
+                                @foreach($clientes as $cliente)
+                                    <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                                    Cancelar
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary w-100 py-2 fs-16px">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -525,6 +493,21 @@
 
 
         $('document').ready(function() {
+
+        // Inicialize o Select2 quando a modal abrir
+    $('.modal').on('shown.bs.modal', function () {
+        $(this).find('.select2').select2({
+            dropdownParent: $(this), // Faz o dropdown renderizar corretamente dentro da modal
+            width: '100%', // Ajusta a largura do campo
+            placeholder: "Selecione o Cliente", // Placeholder opcional
+            allowClear: true // Para permitir limpar a seleção
+        });
+    });
+
+    // Garanta que o Select2 seja destruído quando a modal fechar (boa prática)
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).find('.select2').select2('destroy');
+    });
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
