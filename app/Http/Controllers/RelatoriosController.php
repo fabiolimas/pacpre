@@ -35,12 +35,13 @@ class RelatoriosController extends Controller
 
 
 $total=0;
+$totalqtd=0;
 
 if($dataInicio === $dataFim){
     $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
 ->join('clientes', 'clientes.id', 'vendas.cliente_id')
 ->join('pacotes', 'pacotes.id', 'vendas.pacote_id')
-->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'vendas.created_at', 'vendas.valor')
+->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'vendas.created_at', 'vendas.valor','vendas.quantidade')
 ->where('vendas.status', 'Vendido')
 ->where('lojas.id', $loja_id)
 ->where('vendas.created_at', 'like', '%'.$dataInicio.'%')
@@ -49,7 +50,7 @@ if($dataInicio === $dataFim){
     $vendas = Venda::join('lojas', 'lojas.id', '=', 'vendas.loja_id')
     ->join('clientes', 'clientes.id', 'vendas.cliente_id')
     ->join('pacotes', 'pacotes.id', 'vendas.pacote_id')
-    ->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'vendas.created_at', 'vendas.valor')
+    ->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'vendas.created_at', 'vendas.valor','vendas.quantidade')
     ->where('vendas.status', 'Vendido')
     ->where('lojas.id', $loja_id)
     ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
@@ -61,9 +62,9 @@ if($dataInicio === $dataFim){
 
 //debug
 
-//$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'));
+//$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total','totalqtd'));
 
-$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
+$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total','totalqtd'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
 
 // Salva o PDF temporariamente
 $filePath = 'pdfs/temp_relatorio_vendas.pdf';

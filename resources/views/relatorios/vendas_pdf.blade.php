@@ -90,7 +90,9 @@ table, th, td {
                         <tr class="fs-18px ">
                             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Cliente</span></th>
                             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Descrição</span></th>
-                            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Valor
+                            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade</span></th>
+                            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Valor Unitario</span></th>
+                            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Total
                                 </span>
                             </th>
 
@@ -111,6 +113,12 @@ table, th, td {
                                 <td>
                                     <span class="text-green">{{ $venda->descricao }}</span>
                                 </td>
+                                <td>
+                                    <span class="text-green">{{ $venda->quantidade }}</span>
+                                </td>
+                                <td>
+                                    <span class="text-green">R$ {{ number_format($venda->valor/$venda->quantidade,2,',','.') }}</span>
+                                </td>
 
 
                                 <td style="text-align: center">
@@ -125,11 +133,13 @@ table, th, td {
                             </tr>
                             @php
                                 $total+=$venda->valor;
+                                $totalqtd+=$venda->quantidade;
                             @endphp
                         @endforeach
                         <tr>
                             <th colspan="2" style="text-align: right">Total</th>
-
+                            <td>{{$totalqtd}}</td>
+                            <td></td>
                             <th>R$ {{number_format($total,2,',','.')}}</th>
                         </tr>
                     </tbody>

@@ -168,25 +168,39 @@ public function venderPacote(Request $request)
     }else{
 
 
-
+//dd($request);
+$valor=$request->qtd_pacotes*$request->valor;
 
     $venda = new Venda();
 
     $venda->loja_id = auth()->user()->loja_id;
     $venda->pacote_id = $request->id;
-    $venda->valor = $request->valor;
-    $venda->quantidade = $request->quantidade;
+    $venda->valor = $valor;
+    $venda->quantidade = $request->qtd_pacotes;
     $venda->status = 'Vendido';
     $venda->cliente_id=$request->cliente;
     $venda->save();
 
-    $pacoteCliente= new PacotesCliente();
+
+    $i=0;
+
+    if ($request->qtd_pacotes >= 2) {
+        for ($i = 0; $i < $request->qtd_pacotes; $i++) {
+            $pacoteCliente = new PacotesCliente();
+            $pacoteCliente->cliente_id = $request->cliente;
+            $pacoteCliente->pacote_id = $request->id;
+            $pacoteCliente->quantidade = $request->quantidade;
+            $pacoteCliente->save();
+        }
+    } else {
+        $pacoteCliente = new PacotesCliente();
+        $pacoteCliente->cliente_id = $request->cliente;
+        $pacoteCliente->pacote_id = $request->id;
+        $pacoteCliente->quantidade = $request->quantidade;
+        $pacoteCliente->save();
+    }
 
 
-    $pacoteCliente->cliente_id=$request->cliente;
-    $pacoteCliente->pacote_id=$request->id;
-    $pacoteCliente->quantidade=$request->quantidade;
-    $pacoteCliente->save();
 
 
 
