@@ -30,12 +30,6 @@ class PdvController extends Controller
 
 
 
-
-
-
-
-
-
         return view('pdv.vender_cartao', compact('clientes'));
     }
 
@@ -181,10 +175,6 @@ class PdvController extends Controller
         $cartao=PacotesCliente::join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
         ->select('pacotes_clientes.*','pacotes.descricao')
         ->find($request->pacote);
-
-
-
-
 
 
 
