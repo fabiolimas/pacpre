@@ -353,9 +353,9 @@
 
                                                 {{-- Cliente --}}
                                                 <div class="modal modal-custom"
-    id="select-cliente-{{ $pacote->id }}" tabindex="-1"
-    data-bs-keyboard="false" role="dialog"
-    aria-labelledby="modalTitleId" aria-hidden="true" data-bs-backdrop="static">
+                                                id="select-cliente-{{ $pacote->id }}" tabindex="-1"
+                                                data-bs-keyboard="true" role="dialog"
+                                                aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md border-0" role="document">
         <div class="modal-content bg-transparent">
             <div class="modal-body p-lg-5 border-0">
@@ -493,6 +493,11 @@
 
 
         $('document').ready(function() {
+
+            $('.modal').on('hidden.bs.modal', function () {
+        $('body').removeClass('modal-open'); // Remove a classe que bloqueia o fundo
+        $('.modal-backdrop').remove(); // Remove o backdrop (fundo escuro)
+    });
 
         // Inicialize o Select2 quando a modal abrir
     $('.modal').on('shown.bs.modal', function () {
