@@ -221,6 +221,7 @@ class PdvController extends Controller
             ->join('lojas','lojas.id','vendas.loja_id')
             ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome')
             ->where('clientes.nome','like','%'.$busca.'%')
+            ->where('lojas.nfantasia','%'.$busca.'%')
             ->get();
 
 

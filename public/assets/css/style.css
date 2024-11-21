@@ -26,6 +26,7 @@ span.produtoSemPreco.text-danger.bg-warning {
     height: 83vh;
     padding: 16px;
     border-radius: 7px;
+    overflow-y: scroll;
 }
 .nodoption {
     display: flex
