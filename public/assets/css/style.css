@@ -44,6 +44,7 @@ span.produtoSemPreco.text-danger.bg-warning {
     align-content: center;
     justify-content: center;
     align-items: center;
+    width: 95%;
 }
 .vendasindi {
     border: 1px solid #ccc;
@@ -176,6 +177,10 @@ span.select2-selection__arrow {
         font-size: 10px;
     }
 
+    a.btn.btn-success {
+        width: -webkit-fill-available;
+    }
+
     .fs-16px {
         font-size: 12px;
     }
@@ -199,6 +204,9 @@ span.select2-selection__arrow {
     .w-sm-100 {
 
         width: 100%;
+    }
+    a.btn.btn-success {
+        width: -webkit-fill-available;
     }
 }
 @media (max-width: 992px) {
