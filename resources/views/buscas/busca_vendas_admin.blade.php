@@ -11,46 +11,51 @@ feather.replace();
 
 
 
-    <div class="col-md-12">
+<div class="col-md-12">
 
-        <div class="row">
-           <div class="col-md-12">
-               <div class="">
-                   @foreach($vendas as $venda)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="">
+                @foreach ($vendas as $venda)
 
-                   <div class="vendasindi">
-                       <div class="row">
-                           <div class="col-md-12">
-                           {{$venda->nome}}
-                       </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-3 nodvalue">
-                               R$ {{number_format($venda->valor,2,',','.')}}
-                           </div>
-                           <div class="col-md-3 nod">
-                           {{$venda->descricao}}
-                           </div>
-                           <div class="col-md-3 nod">
-                            {{$venda->nfantasia}}
+                    <div class="vendasindi">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ $venda->nome }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 nodvalue">
+                                R$ {{ number_format($venda->valor, 2, ',', '.') }}
+                            </div>
+                            <div class="col-md-3 nod">
+                                {{ $venda->descricao }} - {{ $venda->quantidade }}
+                            </div>
+                            <div class="col-md-3 nod">
+                                {{ $venda->nfantasia }}
+                            </div>
+
+                            {{-- <div class="col-md-4 nodoption">
+                                <a href="{{ route('pdv.excluir_venda', $venda->id) }}"
+                                    class="btn"><i data-feather="trash"></i></a>
+                            </div> --}}
+                            <div class="col-md-4 nodoption">
+                                <a href="{{ route('pdv.venda', $venda->id) }}"
+                                    class="btn btn-success"><i data-feather="check"></i></a>
+                            </div>
+
                         </div>
 
-                           <div class="col-md-4 nodoption">
-                            <a href="#" class="btn"><i data-feather="trash"></i></a>
-                        </div>
+                    </div>
+                </a>
+                @endforeach
 
-                       </div>
-
-                   </div>
+            </div>
 
 
-                   @endforeach
-
-               </div>
-
-
-           </div>
         </div>
-
     </div>
+
+</div>
 

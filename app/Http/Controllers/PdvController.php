@@ -273,8 +273,6 @@ class PdvController extends Controller
 
         }
 
-
-
         return redirect()->back()->with('success', 'Venda excluida com sucesso!');
 
 
