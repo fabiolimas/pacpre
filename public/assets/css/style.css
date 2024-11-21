@@ -176,6 +176,10 @@ span.select2-selection__arrow {
     .fs-14px {
         font-size: 10px;
     }
+    .col-md-3.nod {
+
+        width: 95%;
+    }
 
     a.btn.btn-success {
         width: -webkit-fill-available;
@@ -207,6 +211,10 @@ span.select2-selection__arrow {
     }
     a.btn.btn-success {
         width: -webkit-fill-available;
+    }
+    .col-md-3.nod {
+
+        width: 95%;
     }
 }
 @media (max-width: 992px) {
