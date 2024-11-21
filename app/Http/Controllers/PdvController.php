@@ -221,7 +221,7 @@ class PdvController extends Controller
             ->join('lojas','lojas.id','vendas.loja_id')
             ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome')
             ->where('clientes.nome','like','%'.$busca.'%')
-            ->where('lojas.nfantasia','%'.$busca.'%')
+            ->orWhere('lojas.nfantasia','%'.$busca.'%')
             ->get();
 
 
@@ -235,7 +235,7 @@ class PdvController extends Controller
         if($vendas->count() >=1){
             return view('buscas.busca_vendas_admin',compact('vendas'));
         }else{
-            return response()->json(['status'=>'Cliente não possui nenhum pacote']);
+            return response()->json(['status'=>'Venda não encontrada']);
         }
     }
 
