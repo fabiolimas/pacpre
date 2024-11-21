@@ -29,7 +29,7 @@
                                             Vender Cartão
                                         </div>
                                     </a> --}}
-
+                                    @can('loja')
                                     <a class="btn btn-primary d-block d-md-inline-block mb-3 py-2 px-3   "
                                     href="{{route('pdv.create')}}" role="button"
                                     style="">
@@ -38,10 +38,78 @@
                                        Baixar Pontos do pacote
                                     </div>
                                 </a>
+                                @endcan
                                 </div>
 
 
                             </div>
+                            @can('admin')
+                            <div class="row">
+                                 <!-- pesquisa -->
+                                 <div class="pt-3">
+                                    <div class="mb-3 position-relative">
+                                        <label for="pesquisa" class="visually-hidden">Pesquisar</label>
+                                        <input type="text" class="form-control input-pesquisar-cliente" name="pesquisa"
+                                            id="pesquisa" placeholder="Pesquisar" autocomplete="off"/>
+
+                                        <button type="submit" class="btn btn-none text-green p-1"
+                                            style="position: absolute; top:3px; right: 20px">
+                                            <i data-feather="search"></i>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row conteudovenda">
+                                <div class="col-md-12">
+
+                                    <div class="row">
+                                       <div class="col-md-12">
+                                           <div class="">
+                                               @foreach($vendas as $venda)
+
+                                               <div class="vendasindi">
+                                                   <div class="row">
+                                                       <div class="col-md-12">
+                                                       {{$venda->nome}}
+                                                   </div>
+                                                   </div>
+                                                   <div class="row">
+                                                       <div class="col-md-3 nodvalue">
+                                                           R$ {{number_format($venda->valor,2,',','.')}}
+                                                       </div>
+                                                       <div class="col-md-3 nod">
+                                                       {{$venda->descricao}}
+                                                       </div>
+                                                       <div class="col-md-3 nod">
+                                                        {{$venda->nfantasia}}
+                                                    </div>
+
+                                                       <div class="col-md-4 nodoption">
+                                                        <a href="{{route('pdv.excluir_venda',$venda->id)}}" class="btn"><i data-feather="trash"></i></a>
+                                                    </div>
+
+                                                   </div>
+
+                                               </div>
+
+
+                                               @endforeach
+
+                                           </div>
+
+
+                                       </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @endcan
+
+
+
+
                             <!-- pesquisa -->
 
 
@@ -68,12 +136,12 @@
             }
         });
 
-        let resultado = $('.resultBusca');
+        let resultado = $('.conteudovenda');
 
         $('#pesquisa').keyup(function() {
 
             $.ajax({
-                url: "{{ route('servicos.busca') }}", // Arquivo PHP que processará a busca
+                url: "{{ route('pdv.busca_vendas_admin') }}", // Arquivo PHP que processará a busca
                 type: "post",
                 data: {
                     pesquisa: $('#pesquisa').val(),

@@ -19,6 +19,52 @@ span.produtoSemPreco.text-danger.bg-warning {
     left: 33%;
     top: 23px;
 }
+.row.conteudovenda {
+    display: flex
+;
+    border: 1px solid #ccc;
+    height: 83vh;
+    padding: 16px;
+    border-radius: 7px;
+}
+.nodoption {
+    display: flex
+;
+    justify-content: flex-end;
+    align-content: flex-end;
+    align-items: center;
+}
+.col-md-3.nod {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    font-size: 12px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.vendasindi {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 13px;
+    border-radius: 7px;
+}
+
+.col-md-3.nodvalue {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    width: auto;
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+
+}
 .nomeFarmacia {
     margin: 0 auto;
     font-weight: bold;

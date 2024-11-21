@@ -11,36 +11,36 @@
             </svg>
         </button>
 
-        @canany(['admin','loja'])
-        <ul class="list-unstyled">
-            <li class="">
-                <a href="{{ route('home') }}"
-                    class="sidebar-link d-flex align-items-center  gap-4 @if (Route::is('home')) active @endif  sidebar-link-inicio">
-                    <i data-feather="home"></i>
-                    <div>
-                        Início
-                    </div>
-                </a>
-            </li>
+        @canany(['admin', 'loja'])
+            <ul class="list-unstyled">
+                <li class="">
+                    <a href="{{ route('home') }}"
+                        class="sidebar-link d-flex align-items-center  gap-4 @if (Route::is('home')) active @endif  sidebar-link-inicio">
+                        <i data-feather="home"></i>
+                        <div>
+                            Início
+                        </div>
+                    </a>
+                </li>
             @endcanany
             @can('cliente')
-            <li class="">
-                <a href="{{route('pacotes.index')}}"
-                    class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
-                    <i data-feather="package"></i>
-                    <div>
-                       Meus Pacotes
-                    </div>
-                </a>
-            </li>
+                <li class="">
+                    <a href="{{ route('pacotes.index') }}"
+                        class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
+                        <i data-feather="package"></i>
+                        <div>
+                            Meus Pacotes
+                        </div>
+                    </a>
+                </li>
             @endcan
             @can('admin')
-              <li class="">
+                <li class="">
                     <a href="{{ route('lojas.index') }}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('lojas.*')) active @endif  gap-4 ">
                         <i data-feather="list"></i>
                         <div>
-                           Lojas
+                            Lojas
                         </div>
                     </a>
                 </li>
@@ -49,7 +49,7 @@
                         class="sidebar-link d-flex align-items-center @if (Route::is('usuarios.*')) active @endif  gap-4 ">
                         <i data-feather="user"></i>
                         <div>
-                           Usuarios
+                            Usuarios
                         </div>
                     </a>
                 </li>
@@ -58,12 +58,12 @@
                         class="sidebar-link d-flex align-items-center @if (Route::is('clientes.*')) active @endif  gap-4 ">
                         <i data-feather="users"></i>
                         <div>
-                           Clientes
+                            Clientes
                         </div>
                     </a>
                 </li>
                 <li class="">
-                    <a href="{{route('servicos.index')}}"
+                    <a href="{{ route('servicos.index') }}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('servicos.*')) active @endif gap-4 ">
                         <i data-feather="image"></i>
                         <div>
@@ -72,100 +72,45 @@
                     </a>
                 </li>
                 <li class="">
-                    <a href="{{route('pacotes.index')}}"
+                    <a href="{{ route('pacotes.index') }}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
                         <i data-feather="package"></i>
                         <div>
-                           Pacotes
+                            Pacotes
+                        </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{{ route('pdv.index') }}"
+                        class="sidebar-link d-flex align-items-center @if (Route::is('pdv.*')) active @endif  gap-4 ">
+                        <i data-feather="shopping-cart"></i>
+                        <div>
+                            PDV
                         </div>
                     </a>
                 </li>
             @endcan
-            @can('admin')
 
-                {{-- <li class="">
-                    <a href="{{ route('painel.admin.compras.index') }}"
-                        class="sidebar-link d-flex align-items-center @if (Route::is('painel.admin.compras.*')) active @endif  gap-4 ">
-                        <i data-feather="list"></i>
-                        <div>
-                            Pedidos de compras
-                        </div>
-                    </a>
-                </li> --}}
-            @endcan
-            @canany(['loja','vendedor'])
-                {{-- <li class="">
-                    <a href="#"
-                        class="sidebar-link d-flex align-items-center @if (Route::is('painel.farmacia.clientes.*')) active @endif  gap-4 ">
-                        <i data-feather="users"></i>
+            @canany('loja')
+                <li class="">
+                    <a href="{{ route('clientes.index') }}"
+                        class="sidebar-link d-flex align-items-center @if (Route::is('clientes.*')) active @endif  gap-4 ">
+                        <i data-feather="user"></i>
                         <div>
                             Clientes
                         </div>
                     </a>
-                </li> --}}
-
-
-            @endcanany
-
-            @can('loja')
-
-            {{-- <li class="">
-                <a href="{{ route('painel.admin.compras.index') }}"
-                    class="sidebar-link d-flex align-items-center @if (Route::is('painel.admin.compras.*')) active @endif  gap-4 ">
-                    <i data-feather="list"></i>
-                    <div>
-                        Pedidos de compras
-                    </div>
-                </a>
-            </li> --}}
-
-            @endcan
-
-            @can('admin')
-            {{-- <li class="">
-                <a href="{{route('cartoes.index')}}"
-                    class="sidebar-link d-flex align-items-center @if (Route::is('cartoes.*')) active @endif gap-4 ">
-                    <i data-feather="credit-card"></i>
-                    <div>
-                        Cartões Pré
-                    </div>
-                </a>
-            </li> --}}
-
-            @endcan
-
-
-            @can('admin')
-                {{-- <li class="">
-                    <a href="#"
-                        class="sidebar-link d-flex align-items-center @if (Route::is('painel.admin.graficos.*')) active @endif  gap-4 ">
-                        <i data-feather="bar-chart-2"></i>
+                </li>
+                <li class="">
+                    <a href="{{ route('pacotes.index') }}"
+                        class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
+                        <i data-feather="package"></i>
                         <div>
-                            Gráficos
+                            Pacotes
                         </div>
                     </a>
-                </li> --}}
-            @endcan
-            @canany('loja')
-            <li class="">
-                <a href="{{ route('clientes.index') }}"
-                    class="sidebar-link d-flex align-items-center @if (Route::is('clientes.*')) active @endif  gap-4 ">
-                    <i data-feather="user"></i>
-                    <div>
-                       Clientes
-                    </div>
-                </a>
-            </li>
-            <li class="">
-                <a href="{{route('pacotes.index')}}"
-                    class="sidebar-link d-flex align-items-center @if (Route::is('pacotes.*')) active @endif  gap-4 ">
-                    <i data-feather="package"></i>
-                    <div>
-                       Pacotes
-                    </div>
-                </a>
-            </li>
-            {{-- <li class="">
+                </li>
+                {{-- <li class="">
                 <a href="{{route('cartoes.index')}}"
                     class="sidebar-link d-flex align-items-center @if (Route::is('cartoes.*')) active @endif gap-4 ">
                     <i data-feather="credit-card"></i>
@@ -173,9 +118,9 @@
                         Cartões Pré
                     </div>
                 </a>
-            </li> --}}
-            <li class="">
-                    <a href="{{route('pdv.index')}}"
+                </li> --}}
+                <li class="">
+                    <a href="{{ route('pdv.index') }}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('pdv.*')) active @endif  gap-4 ">
                         <i data-feather="shopping-cart"></i>
                         <div>
@@ -189,8 +134,8 @@
         </ul>
 
         <ul class="list-unstyled mt-auto mb-0">
-            @canany(['admin','adminFarmacia'])
-            {{-- <li class="">
+            @canany(['admin', 'adminFarmacia'])
+                {{-- <li class="">
                 <a href="#"
                     class="sidebar-link d-flex align-items-center @if (Route::is('painel.config.*')) active @endif  gap-4 ">
                     <i data-feather="settings"></i>
@@ -199,7 +144,7 @@
                     </div>
                 </a>
             </li> --}}
-        @endcanany
+            @endcanany
 
             <li class="">
                 <a href="{{ route('logout') }}"

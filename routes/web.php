@@ -111,6 +111,8 @@ Route::prefix('pdv')->group(function () {
     Route::post('/nova-venda', [PdvController::class, 'store'])->name('pdv.store');
     Route::post('/atualiza-venda/{id}', [PdvController::class, 'update'])->name('pdv.update');
     Route::get('/busca-venda', [PdvController::class, 'buscaCartaoVendido'])->name('pdv.busca');
+    Route::post('/busca-vendas_admin', [PdvController::class, 'buscaVendaAdmin'])->name('pdv.busca_vendas_admin');
+    Route::get('/excluir-venda/{id}', [PdvController::class, 'excluirVenda'])->name('pdv.excluir_venda');
 
 
 

@@ -190,6 +190,7 @@ $valor=$request->qtd_pacotes*$request->valor;
             $pacoteCliente->cliente_id = $request->cliente;
             $pacoteCliente->pacote_id = $request->id;
             $pacoteCliente->quantidade = $request->quantidade;
+            $pacoteCliente->venda_id=$venda->id;
             $pacoteCliente->save();
         }
     } else {
@@ -197,6 +198,7 @@ $valor=$request->qtd_pacotes*$request->valor;
         $pacoteCliente->cliente_id = $request->cliente;
         $pacoteCliente->pacote_id = $request->id;
         $pacoteCliente->quantidade = $request->quantidade;
+        $pacoteCliente->venda_id=$venda->id;
         $pacoteCliente->save();
     }
 

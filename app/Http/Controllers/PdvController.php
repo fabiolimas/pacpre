@@ -18,7 +18,11 @@ class PdvController extends Controller
 
 
         $cartoes=Cartao::where('loja_id', auth()->user()->loja_id);
-        $vendas = Venda::paginate(20);
+        $vendas = Venda::join('clientes','clientes.id','vendas.cliente_id')
+        ->join('pacotes','pacotes.id','vendas.pacote_id')
+        ->join('lojas','lojas.id','vendas.loja_id')
+        ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome','vendas.id')
+        ->get();
         return view('pdv.index', compact('cartoes', 'vendas'));
     }
 
@@ -181,5 +185,75 @@ class PdvController extends Controller
         return view('pdv.historico_cartao',compact('cliente','historicos','cartao','total'));
 
     }
+
+    public function buscaVendaAdmin(Request $request){
+
+        $busca=$request->pesquisa;
+
+        if($busca==''){
+
+            $clientes=Cliente::all();
+
+
+        }else{
+            $clientes=Cliente::where('nome', 'like', '%'.$busca.'%')->get();
+        }
+
+
+        if($busca == ''){
+
+
+            $vendas = Venda::join('clientes','clientes.id','vendas.cliente_id')
+        ->join('pacotes','pacotes.id','vendas.pacote_id')
+        ->join('lojas','lojas.id','vendas.loja_id')
+        ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome')
+
+        ->get();
+
+
+
+        }else{
+
+
+
+            $vendas = Venda::join('clientes','clientes.id','vendas.cliente_id')
+            ->join('pacotes','pacotes.id','vendas.pacote_id')
+            ->join('lojas','lojas.id','vendas.loja_id')
+            ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome')
+            ->where('clientes.nome','like','%'.$busca.'%')
+            ->get();
+
+
+
+
+
+
+           }
+
+
+        if($vendas->count() >=1){
+            return view('buscas.busca_vendas_admin',compact('vendas'));
+        }else{
+            return response()->json(['status'=>'Cliente não possui nenhum pacote']);
+        }
+    }
+
+    public function excluirVenda(Request $request){
+
+        $venda=Venda::find($request->id);
+        $pacoteCliente=PacotesCliente::where('venda_id',$venda->id)
+        ->where('usado',null)
+        ->first();
+
+        $pacoteCliente->delete();
+        $venda->delete();
+
+
+        return redirect()->back()->with('success', 'Venda excluida com sucesso!');
+
+
+    }
+
+
 
 }
