@@ -22,7 +22,7 @@ class PdvController extends Controller
         ->join('pacotes','pacotes.id','vendas.pacote_id')
         ->join('lojas','lojas.id','vendas.loja_id')
         ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome','vendas.id', 'vendas.quantidade','vendas.created_at')
-        ->orderBY('vendas.created_at')
+        ->orderBY('vendas.id','desc')
         ->get();
         return view('pdv.index', compact('cartoes', 'vendas'));
     }
