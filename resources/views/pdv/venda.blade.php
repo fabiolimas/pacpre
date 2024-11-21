@@ -75,7 +75,7 @@
                                                 @else
                                                 <div class="col-md-7 nodoption">
                                                     <a href="{{ route('pdv.excluir_venda', $venda->id) }}" title="Excluir Item"
-                                                        class="btn"><i data-feather="trash"></i></a>
+                                                        class="btn btn-danger"><i data-feather="trash"></i></a>
                                                 </div>
                                                 @endif
                                                 {{-- <div class="col-md-4 nodoption">
