@@ -105,6 +105,7 @@ Route::prefix('clientes')->group(function () {
 Route::prefix('pdv')->group(function () {
 
     Route::get('/', [PdvController::class, 'index'])->name('pdv.index');
+    Route::get('/venda/{id}', [PdvController::class, 'venda'])->name('pdv.venda');
     Route::get('/venda-cartao', [PdvController::class, 'vendaCartao'])->name('pdv.create');
     Route::post('/baixar-pontos/{id}', [PdvController::class, 'baixarPontos'])->name('pdv.baixar-pontos');
     Route::get('/historico/{pacote}/{cliente}', [PdvController::class, 'historico'])->name('pdv.historico');

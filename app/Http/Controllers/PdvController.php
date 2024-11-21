@@ -21,7 +21,7 @@ class PdvController extends Controller
         $vendas = Venda::join('clientes','clientes.id','vendas.cliente_id')
         ->join('pacotes','pacotes.id','vendas.pacote_id')
         ->join('lojas','lojas.id','vendas.loja_id')
-        ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome','vendas.id')
+        ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome','vendas.id', 'vendas.quantidade')
         ->get();
         return view('pdv.index', compact('cartoes', 'vendas'));
     }
@@ -35,6 +35,22 @@ class PdvController extends Controller
 
 
         return view('pdv.vender_cartao', compact('clientes'));
+    }
+
+    public function venda(Request $request){
+
+        $vendac=Venda::join('clientes','clientes.id','vendas.cliente_id')
+        ->select('clientes.nome','vendas.id','vendas.valor','vendas.quantidade')
+        ->find($request->id);
+
+
+
+        $vendaItens=PacotesCliente::join('clientes','clientes.id','pacotes_clientes.cliente_id')
+        ->join('pacotes','pacotes.id','pacotes_clientes.pacote_id')
+        ->select('pacotes.descricao','pacotes_clientes.id','pacotes_clientes.usado')
+        ->where('venda_id',$vendac->id)->get();
+
+        return view('pdv.venda',compact('vendac','vendaItens'));
     }
 
     public function buscaCartaoVendido(Request $request){
@@ -241,13 +257,22 @@ class PdvController extends Controller
 
     public function excluirVenda(Request $request){
 
-        $venda=Venda::find($request->id);
-        $pacoteCliente=PacotesCliente::where('venda_id',$venda->id)
-        ->where('usado',null)
-        ->first();
 
+        $pacoteCliente=PacotesCliente::find($request->id);
+
+        $venda=Venda::find($pacoteCliente->venda_id);
         $pacoteCliente->delete();
-        $venda->delete();
+        if($venda->quantidade >1){
+            $valorIndividual=$venda->valor/$venda->quantidade;
+
+            $venda->update(['quantidade'=>$venda->quantidade-=1,'valor'=>$venda->valor-=$valorIndividual]);
+
+        }else{
+            $venda->delete();
+            return redirect()->route('pdv.index')->with('success', 'Venda excluida com sucesso!');
+
+        }
+
 
 
         return redirect()->back()->with('success', 'Venda excluida com sucesso!');
