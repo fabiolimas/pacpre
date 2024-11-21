@@ -35,7 +35,7 @@
                 </li>
             @endcan
             @can('admin')
-                <li class="">
+                {{-- <li class="">
                     <a href="{{ route('lojas.index') }}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('lojas.*')) active @endif  gap-4 ">
                         <i data-feather="list"></i>
@@ -43,7 +43,7 @@
                             Lojas
                         </div>
                     </a>
-                </li>
+                </li> --}}
                 <li class="">
                     <a href="{{ route('usuarios.index') }}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('usuarios.*')) active @endif  gap-4 ">
