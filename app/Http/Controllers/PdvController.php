@@ -206,23 +206,13 @@ class PdvController extends Controller
 
         $busca=$request->pesquisa;
 
-        if($busca==''){
-
-            $clientes=Cliente::all();
-
-
-        }else{
-            $clientes=Cliente::where('nome', 'like', '%'.$busca.'%')->get();
-        }
-
-
         if($busca == ''){
 
 
             $vendas = Venda::join('clientes','clientes.id','vendas.cliente_id')
         ->join('pacotes','pacotes.id','vendas.pacote_id')
         ->join('lojas','lojas.id','vendas.loja_id')
-        ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome')
+        ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome','vendas.id')
 
         ->get();
 
@@ -235,12 +225,10 @@ class PdvController extends Controller
             $vendas = Venda::join('clientes','clientes.id','vendas.cliente_id')
             ->join('pacotes','pacotes.id','vendas.pacote_id')
             ->join('lojas','lojas.id','vendas.loja_id')
-            ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome')
+            ->select('pacotes.descricao', 'lojas.nfantasia','vendas.valor','clientes.nome','vendas.id')
             ->where('clientes.nome','like','%'.$busca.'%')
             ->orWhere('lojas.nfantasia','%'.$busca.'%')
             ->get();
-
-
 
 
 

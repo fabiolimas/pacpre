@@ -36,19 +36,16 @@ feather.replace();
                                 {{ $venda->nfantasia }}
                             </div>
 
-                            {{-- <div class="col-md-4 nodoption">
-                                <a href="{{ route('pdv.excluir_venda', $venda->id) }}"
-                                    class="btn"><i data-feather="trash"></i></a>
-                            </div> --}}
+
                             <div class="col-md-4 nodoption">
-                                <a href="{{ route('pdv.venda', $venda->id) }}"
+                                <a href="{{ route('pdv.venda', ['id'=>$venda->id]) }}"
                                     class="btn btn-success"><i data-feather="check"></i></a>
                             </div>
 
                         </div>
 
                     </div>
-                </a>
+
                 @endforeach
 
             </div>
