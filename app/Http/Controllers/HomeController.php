@@ -109,6 +109,7 @@ class HomeController extends Controller
                     ->where('vendas.created_at', 'like', '%' . $dataInicio . '%')
                     ->groupBy('loja_id')
                     ->select('loja_id', DB::raw('COUNT(*) as total_cartoes'))
+                    ->orderBy('total_cartoes')
                     ->get();
             } else {
 
