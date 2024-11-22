@@ -47,6 +47,7 @@ class HomeController extends Controller
                 //->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
                 ->groupBy('loja_id', 'lojas.nfantasia', DB::raw('DATE(vendas.created_at)'))
                 ->select('loja_id', 'lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
+                ->orderBy('total_cartoes')
                 ->get();
 
 
