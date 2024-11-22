@@ -52,7 +52,7 @@
                     <div class="card-body px-4 py-4">
 
                         <div class="d-md-flex align-items-center justify-content-between gap-3">
-                            <h2 class="fs-24px fw-600 text-green-2 ">Cartões Vendidos</h2>
+                            <h2 class="fs-24px fw-600 text-green-2 ">Vendas</h2>
                             <div class="d-flex gap-2">
                                 <div class="">
 

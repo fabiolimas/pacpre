@@ -49,6 +49,8 @@ class HomeController extends Controller
                 ->select('loja_id', 'lojas.nfantasia', DB::raw('DATE(vendas.created_at) as dia'), DB::raw('COUNT(*) as total_cartoes'))
                 ->get();
 
+
+
             // Organizar dados para o gráfico
             $dadosOrganizados = [];
             foreach ($cartoesVendidosLojas as $venda) {

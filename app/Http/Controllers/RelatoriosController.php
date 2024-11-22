@@ -61,7 +61,6 @@ if($dataInicio === $dataFim){
 
 
 //debug
-
 //$pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total','totalqtd'));
 
 $pdf = PDF::loadView('relatorios.vendas_pdf', compact('vendas', 'dataInicio', 'dataFim', 'loja', 'total','totalqtd'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
