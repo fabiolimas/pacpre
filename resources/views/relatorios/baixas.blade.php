@@ -30,6 +30,7 @@
                                                 <input type="date" name="data_fim" class="form-control"
                                                     value="{{ $dataFim }}" required id="dataFim" >
                                             </div>
+                                            @can('admin')
                                             <div class="col-md-4">
                                                 <label for="loja">Loja:</label>
                                                <select class="form-select" name="loja" id="loja" required>
@@ -40,6 +41,15 @@
                                                 @endforeach
                                                </select>
                                             </div>
+                                            @endcan
+                                            @can('loja')
+                                            <div class="col-md-4">
+                                                <label for="loja">Loja:</label>
+
+                                                <input type="text" value="{{Auth::user()->name}}">
+                                                <input type="hidden" name="loja" id="loja" value="{{Auth::user()->id}}" class="form-control">
+                                            </div>
+                                            @endcan
                                             <div class="col-md-2 d-flex align-items-end">
                                                 <button type="button" class="btn btn-primary" id="search"> <i
                                                         data-feather="search"></i></button>
