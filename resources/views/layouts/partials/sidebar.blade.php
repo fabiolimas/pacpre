@@ -22,15 +22,7 @@
                         </div>
                     </a>
                 </li>
-                 <li class="">
-                    <a href="{{ route('relatorio.baixas') }}"
-                        class="sidebar-link d-flex align-items-center  gap-4 @if (Route::is('relatorios')) active @endif  sidebar-link-inicio">
-                        <i data-feather="shopping-bag"></i>
-                        <div>
-                            Baixas
-                        </div>
-                    </a>
-                </li>
+
             @endcanany
             @can('cliente')
                 <li class="">
@@ -53,6 +45,15 @@
                         </div>
                     </a>
                 </li> --}}
+                <li class="">
+                    <a href="{{ route('relatorio.baixas') }}"
+                        class="sidebar-link d-flex align-items-center  gap-4 @if (Route::is('relatorios')) active @endif  sidebar-link-inicio">
+                        <i data-feather="shopping-bag"></i>
+                        <div>
+                            Baixas
+                        </div>
+                    </a>
+                </li>
                 <li class="">
                     <a href="{{ route('usuarios.index') }}"
                         class="sidebar-link d-flex align-items-center @if (Route::is('usuarios.*')) active @endif  gap-4 ">
