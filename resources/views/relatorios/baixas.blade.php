@@ -30,7 +30,7 @@
                                                 <input type="date" name="data_fim" class="form-control"
                                                     value="{{ $dataFim }}" required id="dataFim" >
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <label for="loja">Loja:</label>
                                                <select class="form-select" name="loja" id="loja" required>
                                                 <option value>Selecione a loja</option>
