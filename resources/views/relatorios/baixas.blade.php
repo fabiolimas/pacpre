@@ -47,7 +47,7 @@
                                                 <label for="loja">Loja:</label>
 
                                                 <input type="text" value="{{Auth::user()->name}}">
-                                                <input type="hidden" name="loja" id="loja" value="{{Auth::user()->id}}" class="form-control">
+                                                <input type="hidden" name="loja" id="loja" value="{{Auth::user()->loja_id}}" class="form-control">
                                             </div>
                                             @endcan
                                             <div class="col-md-2 d-flex align-items-end">
