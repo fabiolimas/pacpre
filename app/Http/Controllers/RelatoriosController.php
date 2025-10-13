@@ -88,6 +88,7 @@ Storage::disk('public')->put($filePath, $pdf->output());
    ->join('clientes', 'clientes.id', 'pacotes_clientes.cliente_id')
    ->join('pacotes', 'pacotes.id', 'pacotes_clientes.pacote_id')
    ->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'pacotes_clientes.created_at', 'pacotes_clientes.usado')
+     ->whereBetween('vendas.created_at', [$dataInicio, $dataFim])
    ->get();
 
 
