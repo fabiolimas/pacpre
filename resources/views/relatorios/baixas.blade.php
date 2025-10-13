@@ -46,8 +46,8 @@
                                             <div class="col-md-4">
                                                 <label for="loja">Loja:</label>
 
-                                                <input type="text" value="{{Auth::user()->name}}">
-                                                <input type="hidden" name="loja" id="loja" value="{{Auth::user()->loja_id}}" class="form-control">
+                                                <input type="text" value="{{Auth::user()->name}}" class="form-control" readonly>
+                                                <input type="hidden" name="loja" id="loja" value="{{Auth::user()->loja_id}}" >
                                             </div>
                                             @endcan
                                             <div class="col-md-2 d-flex align-items-end">
