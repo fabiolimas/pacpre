@@ -91,6 +91,7 @@ table, th, td {
                             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Cliente</span></th>
                             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Descrição</span></th>
                             <th scope="col"><span class="text-green-2 d-inline-block pb-3">Quantidade</span></th>
+                            <th scope="col"><span class="text-green-2 d-inline-block pb-3">Data</span></th>
 
 
 
@@ -112,6 +113,9 @@ table, th, td {
                                 </td>
                                 <td>
                                     <span class="text-green">{{ $venda->usado }}</span>
+                                </td>
+                                   <td>
+                                    <span class="text-green">{{ $venda->created_at }}</span>
                                 </td>
 
 
