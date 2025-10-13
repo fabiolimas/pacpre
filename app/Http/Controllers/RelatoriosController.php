@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Loja;
+use App\Models\PacotesCliente;
 use App\Models\Venda;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -72,6 +73,49 @@ Storage::disk('public')->put($filePath, $pdf->output());
     // Retorna a URL do PDF
     return response()->json(['url' => Storage::url($filePath)]);
 
+
+  }
+
+
+  public function relBaixas(Request $request){
+
+       $dataInicio = $request->dataInicial;
+    $dataFim = $request->dataFinal;
+    $loja_id=$request->loja;
+    $loja=Loja::Find($loja_id);
+
+    $baixas=PacotesCliente::join('lojas','pacotes_clientes.loja_id','lojas.id')
+   ->join('clientes', 'clientes.id', 'pacotes_clientes.cliente_id')
+   ->join('pacotes', 'pacotes.id', 'pacotes_clientes.pacote_id')
+   ->select('lojas.nfantasia', 'pacotes.descricao', 'clientes.nome', 'pacotes_clientes.created_at', 'pacotes_clientes.usado')
+   ->get();
+
+
+$totalqtd=0;
+
+  $pdf = PDF::loadView('relatorios.baixas_pdf', compact('baixas', 'dataInicio', 'dataFim', 'loja','totalqtd'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
+//$pdf = PDF::loadView('relatorios.baixas_pdf', compact('baixas', 'dataInicio', 'dataFim', 'loja','totalqtd'))->setOptions(['defaultPaperSize' => "a4"]);
+// Salva o PDF temporariamente
+$filePath = 'pdfs/temp_relatorio_baixas.pdf';
+Storage::disk('public')->put($filePath, $pdf->output());
+
+    // Retorna a URL do PDF
+    return response()->json(['url' => Storage::url($filePath)]);
+
+
+  }
+
+  public function baixas(Request $request){
+
+    $dataInicio = $request->input('data_inicio', Carbon::now()->firstOfMonth()->format('Y-m-d'));
+    $dataFim = $request->input('data_fim', now()->addDay()->format('Y-m-d')); // Padrão: Data atual
+
+    $lojas=Loja::all();
+
+
+
+
+    return view('relatorios.baixas',compact('dataInicio','dataFim','lojas'));
 
   }
 }

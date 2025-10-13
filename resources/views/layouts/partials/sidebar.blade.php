@@ -22,6 +22,15 @@
                         </div>
                     </a>
                 </li>
+                 <li class="">
+                    <a href="{{ route('relatorio.baixas') }}"
+                        class="sidebar-link d-flex align-items-center  gap-4 @if (Route::is('relatorios')) active @endif  sidebar-link-inicio">
+                        <i data-feather="home"></i>
+                        <div>
+                            Baixas
+                        </div>
+                    </a>
+                </li>
             @endcanany
             @can('cliente')
                 <li class="">

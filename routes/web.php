@@ -124,6 +124,8 @@ Route::prefix('relatorios')->group(function () {
 
     // Route::get('/', [RelatoriosController::class, 'index'])->name('pdv.index');
     Route::get('/vendas', [RelatoriosController::class, 'vendas'])->name('relatorio.vendas');
+    Route::get('/baixas', [RelatoriosController::class, 'baixas'])->name('relatorio.baixas');
+    Route::post('/baixas-pdf', [RelatoriosController::class, 'relBaixas'])->name('relatorio.baixas_pdf');
     Route::post('/vendas-pdf', [RelatoriosController::class, 'relVEndas'])->name('relatorio.vendas_pdf');
 
 
