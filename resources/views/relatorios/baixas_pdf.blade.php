@@ -128,7 +128,7 @@ table, th, td {
                             @endphp
                         @endforeach
                         <tr>
-                            <th colspan="2" style="text-align: right">Total</th>
+                            <th colspan="3" style="text-align: right">Total</th>
                             <td>{{$totalqtd}}</td>
 
 
