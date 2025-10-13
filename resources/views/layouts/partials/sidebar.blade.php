@@ -25,7 +25,7 @@
                  <li class="">
                     <a href="{{ route('relatorio.baixas') }}"
                         class="sidebar-link d-flex align-items-center  gap-4 @if (Route::is('relatorios')) active @endif  sidebar-link-inicio">
-                        <i data-feather="home"></i>
+                        <i data-feather="shopping-bag"></i>
                         <div>
                             Baixas
                         </div>
