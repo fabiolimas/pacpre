@@ -86,7 +86,7 @@
                                                                         {{ $venda->nfantasia }}
                                                                     </div>
                                                                       <div class="col-md-2 nod">
-                                                                        <i data-feather="calendar"></i> {{ date('d-m-Y', strtotime($venda->created_at)) }}
+                                                                        <i data-feather="calendar" style="color:#ccc; font-size:12px;"></i> {{ date('d-m-Y', strtotime($venda->created_at)) }}
                                                                     </div>
 
                                                                     {{-- <div class="col-md-2 nodoption">
