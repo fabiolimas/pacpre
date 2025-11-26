@@ -37,7 +37,7 @@
                                     <div class="mb-3 position-relative">
                                         <label for="pesquisa" class="visually-hidden">Pesquisar</label>
                                         <input type="text" class="form-control input-pesquisar-cliente" name="pesquisa"
-                                            id="pesquisa" placeholder="Pesquisar" autocomplete="off"/>
+                                            id="pesquisa" placeholder="Nome, CPF ou email" autocomplete="off"/>
 
                                         <button type="submit" class="btn btn-none text-green p-1"
                                             style="position: absolute; top:3px; right: 20px">

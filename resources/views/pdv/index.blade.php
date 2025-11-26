@@ -82,15 +82,18 @@
                                                                     <div class="col-md-3 nod">
                                                                         {{ $venda->descricao }} - {{ $venda->quantidade }}
                                                                     </div>
-                                                                    <div class="col-md-3 nod">
+                                                                    <div class="col-md-2 nod">
                                                                         {{ $venda->nfantasia }}
                                                                     </div>
+                                                                      <div class="col-md-2 nod">
+                                                                        {{ date('d-m-Y', strtotime($venda->created_at)) }}
+                                                                    </div>
 
-                                                                    {{-- <div class="col-md-4 nodoption">
+                                                                    {{-- <div class="col-md-2 nodoption">
                                                                         <a href="{{ route('pdv.excluir_venda', $venda->id) }}"
                                                                             class="btn"><i data-feather="trash"></i></a>
                                                                     </div> --}}
-                                                                    <div class="col-md-4 nodoption">
+                                                                    <div class="col-md-2 nodoption">
                                                                         <a href="{{ route('pdv.venda', $venda->id) }}"
                                                                             class="btn btn-success"><i data-feather="check"></i></a>
                                                                     </div>

@@ -167,7 +167,10 @@ class ClienteController extends Controller
 
 
         }else{
-            $clientes=Cliente::where('nome', 'like', '%'.$busca.'%')->get();
+            $clientes=Cliente::where('nome', 'like', '%'.$busca.'%')
+            ->orWhere('cpf','like', '%'.$busca.'%')
+            ->orWhere('email', 'like', '%'.$busca.'%')
+            ->get();
         }
 
 
