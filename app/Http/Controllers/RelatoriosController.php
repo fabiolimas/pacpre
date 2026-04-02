@@ -93,11 +93,14 @@ Storage::disk('public')->put($filePath, $pdf->output());
    ->whereBetween('pacotes_clientes.created_at', [$dataInicio, $dataFim])
    ->get();
 
+   dd($baixas);
+   exit;
+
 
 $totalqtd=0;
 
-  $pdf = PDF::loadView('relatorios.baixas_pdf', compact('baixas', 'dataInicio', 'dataFim', 'loja','totalqtd'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
-//$pdf = PDF::loadView('relatorios.baixas_pdf', compact('baixas', 'dataInicio', 'dataFim', 'loja','totalqtd'))->setOptions(['defaultPaperSize' => "a4"]);
+  //$pdf = PDF::loadView('relatorios.baixas_pdf', compact('baixas', 'dataInicio', 'dataFim', 'loja','totalqtd'))->setOptions(['enable_remote' => true, 'defaultPaperSize' => "a4"]);
+$pdf = PDF::loadView('relatorios.baixas_pdf', compact('baixas', 'dataInicio', 'dataFim', 'loja','totalqtd'))->setOptions(['defaultPaperSize' => "a4"]);
 // Salva o PDF temporariamente
 $filePath = 'pdfs/temp_relatorio_baixas.pdf';
 Storage::disk('public')->put($filePath, $pdf->output());

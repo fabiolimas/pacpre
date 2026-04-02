@@ -153,6 +153,7 @@ class PdvController extends Controller
             $pacote->update(['usado'=>$usado+=$baixar]);
             $pacote->update([ 'saldo'=>$quantidade_atual-$usado]);
 
+
             $historico= new Historico();
 
             $historico->pacotes_clientes_id=$pacote->id;
