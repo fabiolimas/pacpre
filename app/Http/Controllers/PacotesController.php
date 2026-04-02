@@ -209,4 +209,37 @@ $valor=$request->qtd_pacotes*$request->valor;
     return redirect()->back()->withSuccess('Pacote vendido com sucesso');
     }
 }
+
+public function atualizaPacotesClientes(){
+
+$vendas=Venda::all();
+
+
+foreach($vendas as $venda){
+
+$pacoteCliente=PacotesCliente::where('venda_id', $venda->id)->first();
+
+if($pacoteCliente !=null){
+
+$pacoteCliente->update(['loja_id'=>$venda->loja_id]);
+
+
+
+echo "Pacote ".$pacoteCliente->id." atualizado com sucesso <br>";
+}else{
+
+echo "Pacote ".$venda->id." não encontrado <br>";
+
+}
+
+
+
+
+}
+
+
+
+
+
+}
 }

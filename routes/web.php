@@ -39,6 +39,7 @@ Route::prefix('pacotes')->group(function () {
     Route::post('/atualiza-pacote/{id}', [PacotesController::class, 'update'])->name('pacotes.update');
     Route::post('/busca-pacotes', [PacotesController::class, 'buscaPacote'])->name('pacotes.busca');
     Route::post('/vender-pacote/{id}', [PacotesController::class, 'venderPacote'])->name('pacotes.vender');
+    Route::get('/atualiza-pacotes', [PacotesController::class, 'atualizaPacotesClientes'])->name('pacotes.atualizar');
 
 
 
