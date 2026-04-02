@@ -69,7 +69,7 @@ table, th, td {
                             </a>
                         </td>
                         <td>
-                            <p><b>Relatório de Vendas</b></p>
+                            <p><b>Relatório de Baixas</b></p>
                             <p>Loja: <b>{{$loja->nfantasia}}</b></p>
                             <p>Periodo: <b>{{date('d-m-Y', strtotime($dataInicio))}} a {{date('d-m-Y', strtotime($dataFim))}}</b></p>
 
