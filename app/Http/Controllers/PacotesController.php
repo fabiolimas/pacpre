@@ -228,7 +228,7 @@ $pacoteCliente->update(['loja_id'=>$venda->loja_id]);
 echo "Pacote ".$pacoteCliente->id." atualizado com sucesso <br>";
 }else{
 
-echo "Pacote ".$venda->id." não encontrado <br>";
+echo "Venda ".$venda->id." não encontrada <br>";
 
 }
 
